@@ -1,0 +1,91 @@
+{
+  "name": "seo-traffic-pipeline",
+  "version": "1.0.0",
+  "description": "A four-role SEO content production line (20y SEO veteran as director): keyword strategist, traffic writer, quality gatekeeper and data analyst collaborate through a formal SOP with quantified scoring, ad-law compliance guardrails and weekly attribution.",
+  "author": {
+    "name": "sudotty",
+    "email": "user@example.com"
+  },
+  "agents": [
+    "./agents/seo-traffic-pipeline-team-lead.md",
+    "./agents/keyword-strategist.md",
+    "./agents/traffic-writer.md",
+    "./agents/quality-gatekeeper.md",
+    "./agents/data-analyst.md"
+  ],
+  "skills": ["./skills/seo-framework"],
+
+  "expertType": "team",
+  "agentName": "seo-traffic-pipeline-team-lead",
+  "teamInfo": {
+    "leadAgent": "seo-traffic-pipeline-team-lead",
+    "memberAgents": ["keyword-strategist", "traffic-writer", "quality-gatekeeper", "data-analyst"]
+  },
+
+  "displayName": {
+    "en": "Traffic Operator Pipeline",
+    "zh": "流量操盘手产线"
+  },
+  "profession": {
+    "en": "Traffic Operator Pipeline",
+    "zh": "流量操盘手产线"
+  },
+  "displayDescription": {
+    "en": "A 20-year SEO veteran leads a four-role content-acquisition pipeline: strategy, writing, quality gating and attribution, with AI-search GEO citation optimization.",
+    "zh": "20年SEO老兵带队的内容获客产线：选题、写作、审核、复盘四岗协作，主攻AI搜索GEO引用优化。"
+  },
+  "avatar": "avatars/team.png",
+  "categoryId": "05-MarketingGrowth",
+  "defaultInitPrompt": {
+    "zh": "帮我围绕【关键词】策划并产出一篇公众号流量文，走完选题-写作-审核全流程。",
+    "en": "Plan and produce a public-account traffic article around [keyword], running the full strategy-writing-review pipeline."
+  },
+  "plugin": "seo-traffic-pipeline",
+  "tags": [
+    { "en": "SEO Content Pipeline", "zh": "SEO内容产线" },
+    { "en": "GEO Citation Optimization", "zh": "GEO引用优化" },
+    { "en": "Account Matrix Operation", "zh": "账号矩阵运营" }
+  ],
+  "quickPrompts": [
+    { "en": "Plan and produce a public-account traffic article around [keyword], running the full strategy-writing-review pipeline.", "zh": "帮我围绕【关键词】策划并产出一篇公众号流量文，走完选题-写作-审核全流程。" },
+    { "en": "Give me a mid-to-long term keyword map and content-cluster schedule for [industry/account].", "zh": "给我一套面向【行业/账号】的中长周期关键词地图与内容簇排期。" },
+    { "en": "Review my content data from last week, recalibrate the topic-scoring weights and suggest next week's plan.", "zh": "复盘我上周的内容数据，校准选题权重并给下周建议。" }
+  ],
+  "members": [
+    {
+      "id": "seo-traffic-pipeline-team-lead",
+      "displayName": { "en": "Liu Lianghai", "zh": "刘量海（流量操盘手）" },
+      "profession": { "en": "Traffic Pipeline Director", "zh": "流量产线总控" },
+      "avatar": "avatars/seo-traffic-pipeline-team-lead.png",
+      "role": "lead"
+    },
+    {
+      "id": "keyword-strategist",
+      "displayName": { "en": "Zhen Ciyuan", "zh": "甄词远" },
+      "profession": { "en": "Keyword Strategy Officer", "zh": "选题策略官" },
+      "avatar": "avatars/keyword-strategist.png",
+      "role": "member"
+    },
+    {
+      "id": "traffic-writer",
+      "displayName": { "en": "Wen Qianfan", "zh": "文千帆" },
+      "profession": { "en": "Traffic Content Writer", "zh": "流量写手" },
+      "avatar": "avatars/traffic-writer.png",
+      "role": "member"
+    },
+    {
+      "id": "quality-gatekeeper",
+      "displayName": { "en": "Yan Ke", "zh": "严恪" },
+      "profession": { "en": "Quality & Compliance Gatekeeper", "zh": "质量审核官" },
+      "avatar": "avatars/quality-gatekeeper.png",
+      "role": "member"
+    },
+    {
+      "id": "data-analyst",
+      "displayName": { "en": "Shu Juming", "zh": "舒据明" },
+      "profession": { "en": "Data Attribution Analyst", "zh": "数据复盘师" },
+      "avatar": "avatars/data-analyst.png",
+      "role": "member"
+    }
+  ]
+}

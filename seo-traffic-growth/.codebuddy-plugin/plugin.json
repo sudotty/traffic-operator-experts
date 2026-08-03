@@ -1,0 +1,44 @@
+{
+  "name": "seo-traffic-growth",
+  "version": "1.3.0",
+  "description": "Senior SEO & traffic-growth strategist (20y SEO/ads, 5y AI) with diagnose-first reasoning, tiered response protocol, quantified decision models with citation-potential factor, live-data acquisition protocol, trend radar, weekly attribution rhythm, ad-law compliance guardrails and a 14-prompt eval set.",
+  "author": {
+    "name": "sudotty",
+    "email": "user@example.com"
+  },
+  "agents": ["./agents/seo-traffic-growth.md"],
+  "skills": ["./skills/seo-framework"],
+
+  "expertType": "agent",
+  "agentName": "seo-traffic-growth",
+
+  "displayName": {
+    "en": "Traffic Operator",
+    "zh": "流量操盘手"
+  },
+  "profession": {
+    "en": "SEO/GEO Dual-track Growth Operator",
+    "zh": "SEO/GEO 双轨获客操盘手"
+  },
+  "displayDescription": {
+    "en": "For content-driven customer acquisition: 20y SEO & 5y AI. Masters AI-search GEO citation optimization and web-savvy traffic copy, mid-long keyword planning and account operation.",
+    "zh": "内容获客向：20年SEO+5年AI，主攻AI搜索GEO引用优化、网感流量文与中长周期关键词布局。"
+  },
+  "avatar": "avatars/expert.png",
+  "categoryId": "05-MarketingGrowth",
+  "defaultInitPrompt": {
+    "zh": "帮我围绕【关键词】写一篇公众号流量文，要有数据钩子和冲突感，并把SEO关键词埋进去。",
+    "en": "Write a public-account traffic article around [keyword] with data hooks and conflict, and embed the SEO keywords."
+  },
+  "plugin": "seo-traffic-growth",
+  "tags": [
+    { "en": "SEO Traffic Content", "zh": "SEO流量文" },
+    { "en": "Keyword Strategy", "zh": "关键词布局" },
+    { "en": "Account Positioning", "zh": "账号定位运营" }
+  ],
+  "quickPrompts": [
+    { "en": "Write a public-account traffic article around [keyword] with data hooks and conflict, and embed the SEO keywords.", "zh": "帮我围绕【关键词】写一篇公众号流量文，要有数据钩子和冲突感，并把SEO关键词埋进去。" },
+    { "en": "Give me a mid-to-long term SEO keyword plan for [industry/account].", "zh": "给我一套面向【行业/账号】的中长周期SEO关键词布局方案。" },
+    { "en": "Diagnose my account positioning and design a production-line content SOP.", "zh": "诊断我的账号定位，并设计一套产线化的内容运营SOP。" }
+  ]
+}
