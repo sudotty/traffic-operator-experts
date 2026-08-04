@@ -17,8 +17,10 @@ description: SEO/GEO 流量增长的量化基准数据库与决策模型库。�
 
 | 文件 | 内容 |
 |---|---|
-| `references/benchmarks.md` | 行业数据基准表（含来源、年份、口径）+ 七环节学术锚点 |
-| `references/decision-models.md` | 选题评分卡、标题打分卡、意图权重表、三档预期模板、红队自检清单、输出结构模板 |
+| `references/first-principles.md` | **原理层**：传播力乘法模型、GEO引用概率模型、SEO排名模型、信息增益护城河（所有评分卡的"为什么"） |
+| `references/geo-monitoring.md` | GEO引用自测SOP：query集×多引擎×四维记录、计分卡、冷启动反向拆解 |
+| `references/benchmarks.md` | 行业数据基准表（含来源、年份、口径）+ 2026.8锚点 + 七环节学术锚点 |
+| `references/decision-models.md` | 选题评分卡、标题打分卡、传播力打分、三档预期模板、红队自检清单、输出结构模板 |
 | `references/playbooks.md` | 业务路由矩阵：平台 × 阶段 × 变现三维，含组合打法示例与平台红线 |
 | `references/compliance.md` | 广告法违禁词库 + 行为化改写规则 + 版权/平台红线 + 护栏执行流程（优先级 合规>真实>用户目标>网感风格） |
 | `references/title-hook-library.md` | 标题公式与变体、数据钩子类型、网感化表达规则、平台字数速查 |
