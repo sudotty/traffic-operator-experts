@@ -31,7 +31,7 @@
    `python3 ~/.workbuddy/scripts/commit_wiki.py <repo> wiki/<页面>.md <section文件> "<commit msg>"`
 3. 不同任务写不同文件，避免并发冲突；同一文件内**只向末尾追加**，不改历史。
 4. **无内容不提交**：section 文件为空时脚本直接退出 0（预警类任务依赖此行为，避免噪声空提交）。
-5. 走 `gh` CLI（Contents API），**不使用 `git push`**——本机 git 代理已失效。详见 [归档机制](归档机制.md)。
+5. 归档统一走 `gh` CLI（Contents API）——单文件读写、`sha` 乐观锁、无需 clone，比 `git push` 更适合"追加章节"。人工维护仓库正常用 `git`（已配好 `http.proxy=""` + `HTTP/1.1`）。详见 [归档机制](归档机制.md)。
 
 
 ## 第一性原理（贯穿所有产出）
