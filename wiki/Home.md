@@ -4,7 +4,7 @@
 
 > 仓库：https://github.com/sudotty/traffic-operator-experts ｜ 位置：本仓库 `wiki/` 目录 ｜ 专家：`seo-traffic-growth`（流量操盘手 · SEO/GEO 双轨获客操盘手）
 >
-> 注：当前落在仓库 `wiki/` 目录（完全自动可提交）。GitHub 官方 Wiki tab 的 git 后端需在网页手动建一页才会开通，届时把自动化目标从 `wiki/` 切到 `<repo>.wiki.git` 即可，分类结构不变。
+> 注：内容**永久落在仓库 `wiki/` 目录**（完全自动可提交、有 PR/diff/history、进 clone）。**不启用 GitHub 官方 Wiki tab**（技术评估后决定，详见 [归档机制](归档机制.md)）。
 
 ## 分类导航
 
