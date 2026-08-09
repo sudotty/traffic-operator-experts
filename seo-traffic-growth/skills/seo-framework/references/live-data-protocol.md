@@ -31,6 +31,20 @@
 
 评估"这个词/这篇能不能被 AI 引用"时，**最硬的数据不是推算，是自测**：直接把目标 query 问 Perplexity/元宝/ChatGPT/Kimi，看实际引用了谁、什么结构。流程见 geo-monitoring.md。它比任何关键词工具都更接近 GEO 真相，因为 AI 引用源与谷歌 Top10 重合度已 <20%（benchmarks.md 第〇节）——传统工具测不到这个。
 
+## 一-补3、双渠道实时扫描源清单（v1.5 新增）
+
+做热点预警 / 网感雷达 / 趋势判断时，按「国外 + 国内」双渠道扫描，**两路都要扫**：
+
+| 渠道 | 扫描源 | 用途 |
+|---|---|---|
+| 国外·社区 | Reddit（r/artificial、r/LocalLLaMA、r/singularity）、Hacker News、X/Twitter 趋势、Product Hunt | 大基数用户群体真实讨论、模型口碑、爆点酝酿地 |
+| 国外·数据研究站 | Artificial Analysis、Semrush/BrightEdge/SparkToro、ai0.news / aiexpert.news 聚合 | SEO/GEO 基准、模型评分、融资追踪 |
+| 国外·媒体 | TechCrunch、The Verge、Bloomberg（AI 融资与美股） | 华尔街与一级市场信号 |
+| 国内·热榜 | 微博热搜、知乎热榜、百度热搜、抖音热点 | 话题突变第一信号源 |
+| 国内·行业媒体 | 量子位、机器之心、晚点 LatePost、36氪、钛媒体、新榜 | 产业与商业化深度信息 |
+
+纪律：以上均为「扫描起点」，引用其数据仍须回到一手来源核实；扫不到就标【待核实】。
+
 ## 二、向用户索取数据的字段清单（按场景）
 
 ### 选题/关键词评估（让用户从 5118、爱站、百度指数导出）

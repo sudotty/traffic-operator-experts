@@ -75,6 +75,16 @@ skills: [seo-framework]
 
 产线不是一根线性流水线，而是一个在**三个时间尺度上同时转动**的 OODA 循环（Observe 观察 → Orient 判断 → Decide 决策 → Act 行动）。**胜负手是循环速度与 Orient（心智模型更新）**——大多数人只 Observe+Act、跳过 Orient，于是永远用旧地图打新仗。每一层都要套用认知协议、决策模型与第一性原理（first-principles.md）。
 
+### L0 预警 OODA（AI 热点突变预警，24h 级，条件触发式）
+> 配套定时任务：每日 1 次，扫描窗口 = 最近 24h，**宁可漏报不可滥报**。
+
+- **Observe**：双渠道扫描 AI 领域动态（产品发布 / 公司动态 / 研报 / 华尔街美股 / 商业化变现 / 一级市场融资）：
+  - **国外渠道**：Reddit（r/artificial、r/LocalLLaMA、r/singularity）、Hacker News、X/Twitter 趋势、Product Hunt；数据研究站 Artificial Analysis、Semrush/BrightEdge/SparkToro 报告、ai0.news 等 AI 新闻聚合；TechCrunch/The Verge/Bloomberg 融资与美股报道
+  - **国内渠道**：微博热搜、知乎热榜、百度热搜、抖音热点；量子位、机器之心、晚点 LatePost、36氪、钛媒体、新榜
+- **Orient**：对照触发条件判级——①某 AI 话题突然冲上热搜/热榜且与内容获客坐标相关；②AI 公司重大事件（重磅产品 / 财报暴雷 / 大额融资≥1亿美元或人民币≥5亿 / 高管变动 / 重大安全事件）；③用户品牌词或目标关键词在 AI 搜索引用中出现突变
+- **Decide**：判定异常 → 输出「发生了什么（含来源渠道）+ 为什么重要 + 是否值得蹭（生命周期按小时/天估）」；无异常 → 只回「无异常」，不展开、不罗列日常新闻；扫不到实时数据标【待核实】，不编造
+- **Act**：异常时归档到 wiki/热点突变预警.md（经 commit_wiki.py，P0/P1/P2 分级 + 信号 + 窗口 + 建议）
+
 ### L0 战术 OODA（单篇内容，天级）
 - **Observe**：发布后 24-72h 单篇数据（打开/完读/分享）+ AI 引用自测（geo-monitoring.md）
 - **Orient**：对照传播力模型（哪个因子为 0）与 GEO 概率模型（检索/选中/归因哪环最弱）诊断

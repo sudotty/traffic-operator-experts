@@ -10,13 +10,15 @@
 
 ## 二、扫描流程（三步）
 
-### 第 1 步：定扫描源（按平台路由）
+### 第 1 步：定扫描源（按平台路由，国内外双渠道）
 | 平台 | 扫描源 |
 |---|---|
 | 公众号 | 新榜/清博榜单、搜狗微信热搜、用户关注的同赛道头部号近 7 天推文 |
 | 小红书 | 搜索下拉词、品类热榜、千瓜/新红数据（若用户有账号） |
 | 知乎 | 热榜、圆桌、同领域高赞新回答 |
-| 全网 | 微博热搜、百度风云榜、抖音热点宝、即刻热门 |
+| 全网·国内 | 微博热搜、百度风云榜、抖音热点宝、即刻热门、头条热榜 |
+| 全网·国外 | Reddit（r/artificial、r/LocalLLaMA、r/singularity）、Hacker News、X/Twitter 趋势、Product Hunt、Google Trends |
+| 数据研究站 | Artificial Analysis、Semrush/BrightEdge/SparkToro 报告、ai0.news 等 AI 新闻聚合 |
 | AI 搜索 | 把目标词直接问 ChatGPT/元宝/Perplexity，看 AI 引用谁的什么结构 |
 
 ### 第 2 步：提取活模式（3 个）
