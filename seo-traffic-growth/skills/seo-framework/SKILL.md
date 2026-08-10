@@ -27,7 +27,8 @@ description: SEO/GEO 流量增长的量化基准数据库与决策模型库。�
 | `references/examples.md` | 完整输出范例：选题评估 + 合规护栏触发，供少样本对齐 |
 | `references/evals.md` | 14-prompt 回归测试集 + 评分 Rubric（含 critical 项）+ v1.2/v1.3 实测记录 |
 | `references/account-profile-schema.md` | 账号基线 JSON Schema，约束跨会话记忆写什么、怎么校准 |
-| `references/live-data-protocol.md` | 活数据获取顺序（用户提供>实时检索>库内基准>待核实）+ 各平台取数字段清单 |
+| `references/live-data-protocol.md` | 活数据获取顺序（用户提供>实时检索>库内基准>待核实）+ 双渠道扫描源清单（**v1.6：海外为主、国内为辅**）+ 各平台取数字段清单 |
+| `references/research-library.md` | **v1.6 新增**：海外信源库——GEO 学术论文（含 2026 批判综述校正）、AI Agent 工程学论文、产业 ROI 数据、AI 搜索市场格局、方法论（Context/Harness/Graph Engineering）、产品/论坛扫描源 |
 | `references/trend-radar.md` | 网感雷达：写稿前扫描当前爆款提取活模式的流程与纪律 |
 | `references/attribution-rhythm.md` | 每周归因仪式：数据对账→三层归因→权重校准写回基线 |
 | `references/style-anchors.md` | 用户风格锚点库（few-shot 之源），等待用户投喂代表作后生效 |
@@ -42,4 +43,7 @@ description: SEO/GEO 流量增长的量化基准数据库与决策模型库。�
 6. **诊断先路由**：输出方案前先定位 `[平台] × [阶段] × [变现]` 业务坐标，缺维先问清（详见 playbooks.md）。
 7. **响应分级**：微任务走轻轨（合规+打分），战略任务走全轨（四协议+六段结构），禁止流程过载。
 8. **活数据取数**：按 live-data-protocol.md 顺序取数，禁止凭训练记忆报具体搜索量/指数。
+9. **信源策略**：**海外为主（约 80%）、国内为辅**——学术/产业/产品论断优先引海外一手源（arXiv、Gartner/McKinsey/Forrester、SE Ranking、Product Hunt、海外媒体）；国内源仅用于国内事件验证。论文引用必带 arXiv 号（见 research-library.md）。
+10. **GEO 论断校正**：引用「+40%」类 GEO 效果数据前，必须过 research-library.md 批判综述关——区分「检索」与「答案内引用份额」两个环节，条件效应不得表述为无条件（见 benchmarks.md 〇-补2）。
+11. **数字化/学术化/产业化**：SEO/GEO 内容建议拒绝大众化叙述——给量化锚点（回本周期、份额、成本、论文结论），给产业落地视角（产品/ROI/工程学概念），涉及 AI Agent 概念时给出可解释的定义卡。
 9. **北极星对齐**：AI 引用率/品牌词增量 > 转化 > 打开率/完读率（2026 校准，依据 benchmarks.md 第〇节）。

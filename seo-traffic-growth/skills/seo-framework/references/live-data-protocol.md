@@ -31,19 +31,27 @@
 
 评估"这个词/这篇能不能被 AI 引用"时，**最硬的数据不是推算，是自测**：直接把目标 query 问 Perplexity/元宝/ChatGPT/Kimi，看实际引用了谁、什么结构。流程见 geo-monitoring.md。它比任何关键词工具都更接近 GEO 真相，因为 AI 引用源与谷歌 Top10 重合度已 <20%（benchmarks.md 第〇节）——传统工具测不到这个。
 
-## 一-补3、双渠道实时扫描源清单（v1.5 新增）
+## 一-补3、双渠道实时扫描源清单（v1.6 重构：海外为主、国内为辅）
 
-做热点预警 / 网感雷达 / 趋势判断时，按「国外 + 国内」双渠道扫描，**两路都要扫**：
+做热点预警 / 网感雷达 / 趋势判断时，按「国外 + 国内」双渠道扫描。**信源策略：海外为主（约 80%）、国内为辅**——海外一手源（论文/机构报告/官方/海外媒体）是论断的主要依据，国内源仅用于国内事件验证与国内平台生态补充，不得以国内二手转述代替海外一手源。
 
-| 渠道 | 扫描源 | 用途 |
+### 海外（主渠道，优先扫）
+| 类别 | 扫描源 | 用途 |
 |---|---|---|
-| 国外·社区 | Reddit（r/artificial、r/LocalLLaMA、r/singularity）、Hacker News、X/Twitter 趋势、Product Hunt | 大基数用户群体真实讨论、模型口碑、爆点酝酿地 |
-| 国外·数据研究站 | Artificial Analysis、Semrush/BrightEdge/SparkToro、ai0.news / aiexpert.news 聚合 | SEO/GEO 基准、模型评分、融资追踪 |
-| 国外·媒体 | TechCrunch、The Verge、Bloomberg（AI 融资与美股） | 华尔街与一级市场信号 |
-| 国内·热榜 | 微博热搜、知乎热榜、百度热搜、抖音热点 | 话题突变第一信号源 |
-| 国内·行业媒体 | 量子位、机器之心、晚点 LatePost、36氪、钛媒体、新榜 | 产业与商业化深度信息 |
+| 学术·论文 | arXiv（cs.IR / cs.AI / cs.CL 每周新提交）、ACL/EMNLP/KDD 论文集 | GEO/Agent 前沿论断的唯一「学术级」依据；论文清单见 research-library.md |
+| 社区·讨论 | Reddit（r/artificial、r/LocalLLaMA、r/singularity）、Hacker News、X/Twitter 趋势 | 大基数用户真实讨论、模型口碑、爆点酝酿地（AI 偏爱社区内容：OpenAI-Reddit 年授权 6000 万美元） |
+| 产品·发布 | Product Hunt 每日热榜、Hacker News 首页 | Agent 基建新产品（IDE/浏览器/搜索/支付/采购）与可产业化信号 |
+| 数据·研究站 | Artificial Analysis、Semrush/BrightEdge/SparkToro、SE Ranking、Sensor Tower | SEO/GEO 基准、AI 搜索份额、模型评分、MAU 数据 |
+| 媒体·财经 | TechCrunch、The Verge、Bloomberg、WSJ、dev.to AI Daily Digest | 融资 / 美股 / 产品周报 |
+| 机构·报告 | Gartner / McKinsey / Forrester / Deloitte / Anthropic 官方报告 | 产业 ROI 与采用率硬数据（见 research-library.md 第三节） |
 
-纪律：以上均为「扫描起点」，引用其数据仍须回到一手来源核实；扫不到就标【待核实】。
+### 国内（辅渠道，验证用）
+| 类别 | 扫描源 | 用途 |
+|---|---|---|
+| 热榜 | 微博热搜、知乎热榜、百度热搜、抖音热点 | 话题突变第一信号源（仅作触发信号，数据仍回海外/一手核实） |
+| 行业媒体 | 量子位、机器之心、晚点 LatePost、36氪、钛媒体、新榜 | 国内事件一手验证与国内平台生态补充 |
+
+纪律：以上均为「扫描起点」，引用其数据仍须回到一手来源核实；扫不到就标【待核实】。**GEO 引用率/效果类论断引用前必须过 research-library.md 的批判综述校正**（如「+40%」必须加「固定上下文内」条件）。
 
 ## 二、向用户索取数据的字段清单（按场景）
 

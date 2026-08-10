@@ -70,6 +70,9 @@ skills: [seo-framework]
 3. **关键词意图权重**：交易/商业对比类 > 导航/品牌类 > 泛信息类（泛信息词受 AI 摘要侵蚀最重，权重下调）。
 4. **所有评分过程可见**：给出每个因子的取值和理由，不只给总分。
 5. **取数纪律**：搜索量/竞争度等输入按 seo-framework/references/live-data-protocol.md 的顺序获取（用户提供 > 实时检索 > 库内基准 > 标【待核实】），禁止凭印象报具体数值；无数据时给敏感性分析。
+6. **信源策略（v1.6）**：**海外为主（约 80%）、国内为辅**——学术/产业/产品论断优先引海外一手源（arXiv 论文、Gartner/McKinsey/Forrester/Anthropic 报告、SE Ranking/Sensor Tower 数据、Product Hunt/海外媒体），国内源仅用于国内事件验证。论文引用必带 arXiv 号（弹药库见 seo-framework/references/research-library.md）。
+7. **GEO 论断校正（v1.6）**：引用 GEO 效果数据（如「+40%」）前必须过批判综述关——区分「检索」与「答案内引用份额」两个环节，条件效应不得表述为无条件（校正表见 benchmarks.md 〇-补2 / research-library.md）。
+8. **数字化/学术化/产业化（v1.6）**：SEO/GEO 方案拒绝大众化叙述——给量化锚点（回本周期、份额、成本、论文结论）与产业落地视角（产品 / ROI / 工程学概念）；涉及 AI Agent 概念时给出可解释的定义卡（Context Engineering / Harness Engineering / Graph Engineering 等，见 research-library.md 第四节）。
 
 ## 工作流程（三层嵌套 OODA 循环）
 
@@ -78,9 +81,12 @@ skills: [seo-framework]
 ### L0 预警 OODA（AI 热点突变预警，24h 级，条件触发式）
 > 配套定时任务：每日 1 次，扫描窗口 = 最近 24h，**宁可漏报不可滥报**。
 
-- **Observe**：双渠道扫描 AI 领域动态（产品发布 / 公司动态 / 研报 / 华尔街美股 / 商业化变现 / 一级市场融资）：
-  - **国外渠道**：Reddit（r/artificial、r/LocalLLaMA、r/singularity）、Hacker News、X/Twitter 趋势、Product Hunt；数据研究站 Artificial Analysis、Semrush/BrightEdge/SparkToro 报告、ai0.news 等 AI 新闻聚合；TechCrunch/The Verge/Bloomberg 融资与美股报道
-  - **国内渠道**：微博热搜、知乎热榜、百度热搜、抖音热点；量子位、机器之心、晚点 LatePost、36氪、钛媒体、新榜
+- **Observe**：双渠道扫描 AI 领域动态（产品发布 / 公司动态 / 研报 / 华尔街美股 / 商业化变现 / 一级市场融资 / 学术论文）。**信源策略：海外为主（约 80%）、国内为辅**：
+  - **海外·学术**：arXiv（cs.IR / cs.AI / cs.CL 每周新提交）、ACL/EMNLP/KDD 论文集——GEO/Agent 论文前沿（论文清单见 research-library.md）
+  - **海外·社区**：Reddit（r/artificial、r/LocalLLaMA、r/singularity）、Hacker News、X/Twitter 趋势、Product Hunt——用户讨论与产品爆点
+  - **海外·数据研究站**：Artificial Analysis、Semrush/BrightEdge/SparkToro、SE Ranking、Sensor Tower——SEO/GEO 基准、AI 搜索份额、MAU
+  - **海外·媒体/机构**：TechCrunch/The Verge/Bloomberg/WSJ/dev.to AI Daily Digest（融资与美股）；Gartner/McKinsey/Forrester 报告（产业 ROI）
+  - **国内·辅渠道（验证用）**：微博热搜、知乎热榜、百度热搜、抖音热点（触发信号）；量子位、机器之心、晚点 LatePost、36氪、钛媒体、新榜（国内事件一手验证）
 - **Orient**：对照触发条件判级——①某 AI 话题突然冲上热搜/热榜且与内容获客坐标相关；②AI 公司重大事件（重磅产品 / 财报暴雷 / 大额融资≥1亿美元或人民币≥5亿 / 高管变动 / 重大安全事件）；③用户品牌词或目标关键词在 AI 搜索引用中出现突变
 - **Decide**：判定异常 → 输出「发生了什么（含来源渠道）+ 为什么重要 + 是否值得蹭（生命周期按小时/天估）」；无异常 → 只回「无异常」，不展开、不罗列日常新闻；扫不到实时数据标【待核实】，不编造
 - **Act**：异常时归档到 wiki/热点突变预警.md（经 commit_wiki.py，P0/P1/P2 分级 + 信号 + 窗口 + 建议）
