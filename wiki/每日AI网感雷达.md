@@ -74,3 +74,142 @@
 - 模式 3：开源模型登顶榜单（MiniMax H3）→ 「实测对比 + 教程」双形态，视频类自带社交货币。
 - 模式 4：产品级功能变更（OpenAI 免费层）→ 「决策文/FAQ」形态，长尾 SEO 截流。
 - 模式 5：GEO/合规类（欧盟 AI 法案）→ 「清单/盘点」形态，归因链完整，商业意图最强。
+
+# 今日 AI 流量雷达 · 强化版（产业实战 × 学术 × 海外信源为主）
+
+## 雷达定位
+本次为「强化版」：在基础雷达（5 钩子）之上，按用户四项要求升级——①产业界与实战性（AI 产品落地/外网数据/可产业化场景/AI Agent 与论文概念解释）；②SEO/GEO 数字化、学术化、产品化、产业化（拒绝大众化叙述，全部给量化锚点）；③信源海外为主、国内为辅；④同步沉淀论文/研究/产品/方法论/工程学到 skill 与 agent。**海外信源占比约 80%，国内信源补充验证。**
+
+---
+
+## Part A｜产业实战雷达（AI Agent 落地、可产业化，海外产品为主）
+
+### A1. Agent 落地 ROI 全谱系数据（产业界硬数据，海外为主）
+> 用途：任何「AI Agent 值不值得做」类选题的量化弹药库。
+
+| 指标 | 数值 | 来源（口径） |
+|---|---|---|
+| 企业应用嵌入任务型 Agent | 2026 底 40%（2025 不到 5%） | Gartner 2026 |
+| Agent 部署 12 个月内 ROI 转正 | 41%；中位回本 5.1 个月；19% 永不回本 | Gartner Agentic AI Pulse 2026 |
+| 回本周期按负载类型 | SDR 3.4 月 / 客服 4.1 / 市场 6.7 / 财务 8.9 / 工程 9.3 | Gartner 2026（按工作负载） |
+| 生产级 Agent 平均 ROI | 171%（美国 192%） | OneReach 2026 / Forrester |
+| 每 $1 生成式 AI 投入回报 | 3.7x（行业均值） | Forrester 2026 |
+| 企业 Agent 项目 2027 前被取消风险 | >40% | Gartner |
+| 失败根因中「模型能力」占比 | <8%；92% 卡在治理/评估/集成 | Gartner 2026（Forrester：41% 目标不清 / 33% 工具数据不足 / 26% 评估漂移） |
+| 银行/保险生产级 Agent 部署 | 47% | McKinsey/S&P Global 2026 |
+| Agent 市场体量 | 2026 年 109–120 亿美元，CAGR 44–46% | Grand View / MarketsandMarkets |
+| 垂直行业 Agent | 增长最快细分，CAGR 62.7% | 2026 多源 |
+| 全任务移交型 API 流量占比 | 77%（企业已把完整任务交给 Agent） | Anthropic State of AI Agents 2026 遥测 |
+| 人工审批形同虚设 | 93% 权限弹窗未读即批准；复杂任务 Agent 主动澄清仅 16.4% | Anthropic 2026 |
+| 有自动评估的 Agent 12 月回滚率 | 9% vs 无评估 47% | Gartner Agentic AI Pulse 2026 |
+
+**产业结论（可写进任何 Agent 选题）**：Agent ROI 是真实的、集中的、双峰分布——SDR/客服类 3-4 个月回本、工程类 9 个月+；失败的 92% 不是模型不行，是没定义成功标准、没建评估。**「评估基建 > 模型选择」是 2026 企业 Agent 决策的新常识。**
+
+### A2. AI 搜索市场格局（海外硬数据，GEO 内容必引）
+> 用途：证明「AI 引用率是北极星」的量化依据。
+
+| 指标 | 数值 | 来源（口径） |
+|---|---|---|
+| AI 平台引荐流量份额 | ChatGPT 74.78%（同比 -5pt）/ Gemini 11.56%（+231%）/ Perplexity 7.23%（-13%）/ Copilot 3.51%（+31%）/ Claude 2.62%（+320%） | SE Ranking AI Traffic Research（101,574 站点，250 市场，2025.1–2026.1） |
+| ChatGPT 周搜索查询量 | 每周 >10 亿次 | 2026 多源 |
+| Perplexity 月查询量 | >10 亿 | 2026 |
+| AI 助手 MAU 份额 | ChatGPT 46.4%（11 亿 MAU，首破 50%）/ Gemini 27.7%（6.62 亿）/ Claude 10.3%（2.45 亿） | Sensor Tower 2026 AI 产业报告 |
+| AI 搜索占全球互联网流量 | 绝对值仅 0.32%，但两年 +16 倍 | SE Ranking / 行业 2026 |
+| AI 引荐转化 | ChatGPT 引荐转化 15.9% vs 自然 1.76%（≈9 倍） | Conductor 2026 |
+| 系统性追踪 AI 搜索表现的品牌 | 仅 16% | 行业调研 2026 |
+
+### A3. 海外本周产品动态（Product Hunt / HN / 产业，可产业化信号）
+- **Coldtea.ai（PH #1，469 票）**：Agentic IDE——编码 Agent 干活、视觉 QA Agent 抓回归、AI 监控盯生产。「Agent 速度下保持生产稳定」= 企业 Agent 落地的基础设施痛点。
+- **Nitro 4.0（251 票）**：首个「AI Agent 可自主下单付款」的人工翻译平台——**Agent-to-Human 经济**（机器下单、人类交付），80+ 语言无订阅。这是「Agent 消费力」从概念变交易的关键样本。
+- **Cloudflare Wallets（267 票）**：面向 Agentic Internet 的可编程钱包层——Agent 安全交易 API/内容/数字服务，虚拟钱包+支出控制+机器友好支付。**支付基础设施为 Agent 经济铺路**。
+- **BrowserOS neo（194 票）**：为 Claude Code/Cowork/Codex 服务的 Agent 专用浏览器。Agent 原生浏览器的产品化。
+- **AdAnt AI（PH #1，588 票，8/5）**：「Claude for social ads」——创意 Agent 生成社媒广告，宣称关联 5000 万+ 自然观看、付费获客成本 -60%。营销自动化 ROI 案例。
+- **Notion AI 3.0**：从「当前文档辅助」升级为「工作区级研究 Agent」，跨文档合成答案——知识工作 Agent 的产品化方向。
+- **Meta Muse Code**：自主编程 Agent（跨文件改码+跑测试），LMArena EL0 ~1498 全榜 4-5 位——编程 Agent 三范式（补全/生成/自主）落齐。
+- **AnySearch（中国团队，PH 周榜登顶）**：Agent 专用搜索基础设施，API-First，垂直数据+意图路由+结构化 Markdown 输出，实测准确率 76.4%（Frames/FreshQA/WebwalkerQA 300 题），端到端延迟 47.8s。**「搜索基础设施」正在成为 Agent 技术栈独立品类。**
+- **Anthropic**：$10B 云协议（Volta）；Google 安排 Broadcom 数十亿美元融资为 Anthropic 供芯片/数据中心（表外）。
+- **字节 SeedRealtime**（8/5 上线豆包）：原生音视频全双工大模型——「边看边听边说」实时双向交互。
+
+**产业主线（可借势）**：本周海外产品线全部指向同一件事——**「Agent 从聊天走向执行」的基础设施层**：Agent IDE（Coldtea）、Agent 浏览器（BrowserOS）、Agent 搜索（AnySearch）、Agent 支付（Cloudflare Wallets）、Agent 采购（Nitro）。这是内容获客「下一波」：写 Agent 基建选型/对比/落地类内容，GEO 引用概率高且生命周期长（非一日热点）。
+
+---
+
+## Part B｜学术与概念层（论文 + AI Agent 概念解释，海外论文为主）
+
+### B1. GEO 学术前沿（2026 批判性综述——所有「+40%」论断必须加条件）
+> 关键论文：Martinez, "Optimizing Visibility in Generative Engines: A Critical Survey of GEO (2023–2026)", arXiv:2607.14035（2026-07-15，45 项研究）
+
+| 发现 | 数值 | 意义 |
+|---|---|---|
+| 原始「+40%」的真实口径 | Princeton KDD 2024 的 +41% 是「位置调整词数 19.3→27.2」，仅证明**已被检索进上下文的文档**能提升答案内引用份额 | 不 = +40% 点击/曝光；检索是独立环节 |
+| 最可复现的杠杆 | 主题相关性与上下文位置（非通用启发式） | GEO 基本功 > 技巧堆砌 |
+| 引用导向改写对检索的代价 | SAGEO Arena 实测朴素正文优化 -9%/-16%/-6% 检索（Kim et al. arXiv:2602.12187，171,003 文档） | **结构是安全网**：标题/层级/markup 才缓解 |
+| 修复 vs 重写 | 定向修复改 5% 内容即可 +40% 引用率；全量重写改 5 倍内容效果更差甚至伤长尾页（Tian et al. arXiv:2603.09296） | 「先诊断后修，别全量重写」 |
+| 引用列表日波动 | 源级 Jaccard 相似度 0.34–0.42（4 引擎 45 天），半数以上引用每日换血（Schulte 2026） | 单次测量是噪声 → 每 prompt 7-8 次重复、四维变化（run/paraphrase/date/engine） |
+| ChatGPT 每答案引用源数 | 平均 <7 个源（N=21,143 引用） | 「答案层很小且流动」，进前 7 才是赢 |
+| Google AI Overviews 测量框架 | 激活/来源质量/claim 保真/发布者影响（Xu et al. arXiv:2605.14021） | 测量方法论参考 |
+| 内容结构塑造引用 | Structural feature engineering（Yu et al. arXiv:2603.29979） | 结构特征工程可定量影响引用行为 |
+| AgenticGEO | 自进化 agentic GEO 系统（Yuan et al. arXiv:2603.20213） | GEO 自动化的前沿方向 |
+
+**学术结论（写 GEO 内容时的正确姿势）**：说「GEO 提升 40%」必须加条件——「固定上下文内、已被检索的文档，引用份额最多 +40%」；对检索环节的增益没有纵向跨平台证据。**可操作的三个可信结论**：①结构（标题/层级/Schema）是检索安全网；②先诊断后修复（改 5% 比重写 5 倍强）；③测量要重复（单次是噪声，7-8 次起步）。
+
+### B2. AI Agent 工程学论文（概念解释弹药库）
+- **arXiv:2606.20683《From QA to Task Completion: A Survey on Agent System and Harness Design》**（2026-06，Huawei Noah's Ark 系）：核心概念——Agent = 基座模型 × 执行 harness；Agent 工程四范式：**prompt engineering → workflow/context engineering → harness engineering → agent-native training（模型-harness 共进化）**；harness 六大运行时职责：**observation / context / control / action / state / verification**。可用概念：解释「为什么 agent 系统比模型本身更决定成败」。
+- **arXiv:2606.04990《From Agent Traces to Trust: Evidence Tracing & Execution Provenance in LLM Agents》**：执行溯源（typed graph）与证据溯源——与 GEO 归因环直接呼应：**内容要能被 AI「溯源归因」才值得引用**；agent 可审计性是 2026 信任基础设施核心。
+- **arXiv:2606.08274《Human-Centered Multi-Agent Systems》**：文化/价值观/协作对齐——多 Agent 社会化的学术前瞻。
+- **arXiv:2606.26627《Agents That Know Too Much: Privacy in LLM Agents》**：Agent 隐私数据面（数据过度暴露）——企业 Agent 合规内容素材。
+
+**概念解释卡（可产业化落地视角）**：
+- **Context Engineering（上下文工程）**：不是把更多信息塞进 prompt，而是**选择性构造模型看到的上下文**（检索、压缩、时序编排）——蚂蚁 Ling-3.0-flash 的 hierarchical caching 把长输入首 token 时延降 60-80%，就是 context engineering 的工程化案例。
+- **Harness Engineering（执行框架工程）**：模型外的运行时（工具、状态、验证、回滚）决定 Agent 是否可用——GitHub stacked PRs、Agent 评估基建（有评估 9% 回滚 vs 无评估 47%）都是 harness 层证据。
+- **Graph Engineering（图工程）**：2026 新词——把 agentic 网络构造成**持久执行图**（长期记忆 + 自纠错逻辑），从「提示工程」进入「执行图工程」。
+
+---
+
+## Part C｜SEO/GEO 数字化内容机会（5 个钩子 × 量化升级）
+
+### C1. 【资金+成本】DeepSeek 5000 亿估值重启融资 + API 涨价（国内主线，海外交叉验证）
+- 量化锚点：投前估值 5000 亿元（≈740 亿美元，较首轮投后 +43%）；累计融资将破千亿；DeepSeek V4 Flash 单日 8 万亿 token（8/1，OpenCode 平台数据）；OpenRouter 调用量前五全是中国产品；中国模型定价通常为西方同类 1/3，极端 1%。
+- 产业切入点：《DeepSeek API 涨价后的国产模型经济学》——按 token 成本 × 调用量的 TCO 对比表（DeepSeek/Kimi/Qwen/混元）；《5000 亿估值的推理需求账》——为什么涨价与融资同时发生（capex 与定价权）。
+- GEO 三环：检索强（财经+开发者双人群）→ 选中中（需独家测算）→ 归因中（《财经》可引）。形态：成本对比表 + TCO 测算。
+- SEO 截流词：DeepSeek 融资 / DeepSeek API 涨价 / 国产大模型 API 价格对比 / LLM TCO。
+
+### C2. 【组织+人才】Google DeepMind 高层地震（海外主线）
+- 量化锚点：Alphabet 单日市值蒸发约 1800 亿美元（盘中 -5%）；人才流向：Noam Shazeer→OpenAI、John Jumper→Anthropic、Jeff Dean→Discovery Loop（携三位核心科学家）；Gemini 3.5 Pro 延期数月。
+- 产业切入点：《谷歌 AI 人才流失 2024-2026 时间线》信息增益在因果链编排；《Gemini API 还值不值得押注》开发者选型决策文。
+- GEO 三环：检索强 → 选中中（二手信息竞争激烈，需时间线/独家编排）→ 归因弱（AI 倾向引一手公告）。形态：时间线 + 选型决策树。
+- SEO 截流词：Hassabis 卸任 / Jeff Dean 离职 / Gemini 3.5 Pro 延期 / 谷歌 AI 人才流失。
+
+### C3. 【产品+开源】MiniMax H3 登顶 Design Arena（海外主线）
+- 量化锚点：三项第一（多图生视频/图生视频/视频编辑）；HF 趋势榜 3 天登顶；股价 4 日 +25%（Jefferies 买入，目标 HK$1,118）；Context-IR 压缩 100K→~4K tokens（约 25 倍）；100+ 伙伴 Day-0 集成。
+- 产业切入点：《开源视频模型的成本结构革命》——Context-IR 如何把视频生成 token 成本降一个量级（工程学解释）；《H3 vs Seedance 2.0 vs 可灵》实测对比。
+- GEO 三环：检索强 → 选中强（评测/教程结构化）→ 归因中（带版本+时间戳）。形态：实测对比 + 技术拆解。
+- SEO 截流词：MiniMax H3 / AI视频生成免费 / Context-IR / 视频生成模型对比。
+
+### C4. 【产品+留存】OpenAI 免费版取消文本次数限制（海外主线）
+- 量化锚点：免费/Go 用户纯文本无限次；默认模型 GPT-5.5 Instant→GPT-5.6 Luna；新增 Think 按钮；Plus/Pro 思考强度调节。产业背景：ChatGPT MAU 份额跌破 50%（46.4%）——放开免费层是应对 Gemini（27.7%）生态整合的留存战。
+- 产业切入点：《ChatGPT 免费版放开背后的留存战》——结合 Sensor Tower 三强格局解读产品策略；《免费 vs Plus 该不该升级》决策文。
+- GEO 三环：检索强（长尾高频）→ 选中强（决策类内容 AI 常引）→ 归因中（官方公告可引）。形态：FAQ/决策表。
+- SEO 截流词：ChatGPT免费版次数限制 / GPT-5.6 Luna / ChatGPT 免费 vs Plus。
+
+### C5. 【合规+GEO】欧盟 AI 法案 8/2 生效 + GEO 认知爬坡期（海外主线，合规优先）
+- 量化锚点：EU AI Act Article 50 透明规则 8/2 生效（AI 交互披露 + 合成媒体机器可读标记），域外效力（输出进入欧盟即适用）；普林斯顿 KDD 2024：引用文献 +40.6%（条件见 B1 批判综述）、权威数据 +32.8%、规范标注来源 +29.7%；Pew 2025：有 AI 摘要时点击率 15%→8%；GEO 批判综述结论（45 研究）：市场宣称 ROI 远超学术证据。
+- 产业切入点：《欧盟 AI 法案生效：你的 AI 内容标注合规吗》（合规 > 蹭热点，本专家主场）；《2026 GEO 量化数据盘点》——把批判综述 + 普林斯顿 + 皮尤 + SE Ranking 做成可引用清单（数字化、学术化，拒绝「GEO 万能」式大众化叙述）。
+- GEO 三环：检索强 → 选中强（清单/盘点结构）→ 归因强（官方+论文可引）。形态：合规清单 + 数据盘点。
+- SEO 截流词：GEO 优化 / EU AI Act 合规 / AI 内容标注 / AI 引用率 / generative engine optimization。
+
+---
+
+## Part D｜有效模式写入（更新版，数字化/学术化升级）
+
+1. **资金/估值类事件** → 「TCO 测算/估值拆解」形态，GEO 选中靠独家计算，不靠转述。
+2. **组织人事地震** → 「时间线/因果链」形态，信息增益在编排（人才流向表），引用一手公告降归因风险。
+3. **开源模型登顶** → 「实测对比 + 技术拆解」双形态，工程学概念（Context-IR/推理成本）是信息增益点。
+4. **产品级功能变更** → 「决策文/FAQ」形态，必须挂产业背景数据（如 MAU 份额）提升分析深度。
+5. **GEO/合规类** → 「清单/盘点」形态，**引用批判综述设定正确预期**（拒绝无条件的 +40%），归因链完整。
+6. **Agent 基建类（新）** → 「选型/对比/落地」形态，Agent 经济基础设施（IDE/浏览器/搜索/支付）是长生命周期选题带，海外产品动态持续供应。
+
+## Part E｜数据纪律与待核实
+- 本雷达海外信源为主（约 80%）：Gartner/McKinsey/Anthropic/Forrester/SE Ranking/Sensor Tower/arXiv/Product Hunt/dev.to/新浪科技（国内仅验证国内事件）。
+- 公众号三件套因 REDFOX_API_KEY 未配置仍标【待核实】，未并入本次强化版。
+- 账号基线（3-5 篇代表稿）仍未回填；Agent 落地 ROI 中个别行业数字（如 $77M 零售年毛利）为个案，引用时标注「个案参考」。
