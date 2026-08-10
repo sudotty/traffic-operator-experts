@@ -22,6 +22,7 @@ description: SEO/GEO 流量增长的量化基准数据库与决策模型库。�
 | `references/system-lifecycle.md` | **v2.2 系统架构**：GOAL→CONTEXT→STATE→MODEL→DECISION→ACTION→WORLD→EVIDENCE→VERIFICATION→REPAIR→TRACE→EXPERIENCE→MEMORY→SKILL→OPTIMIZATION→EVALUATION→RELEASE→BETTER SYSTEM 闭环；每环 5W2H 详解 + 对应文件 + 强弱标注；**新增 4 弱环协议**（STATE 账号状态机五态 / REPAIR 修复四步 / TRACE 追溯格式 / EXPERIENCE 经验提炼四步） |
 | `references/military-core.md` | **v2.3 军事方法论层**：军事领域方法论穷举（情报/执行/指挥/评估/战略 5 域 30+ 条）× 19 环映射 × 8 个深度结合（AAR 复盘/情报周期+PIR/任务式指挥/ACH/重心/兵棋推演/杀伤链/条令）；每条 5W2H+比喻+四化；系统注入「情报-执行-复盘」三环强 |
 | `references/deep-mapping.md` | **v2.4 理论母体层**：军事方法论 × LLM 第一性原理深度映射——控制论家族（Wiener/Ashby/Powers/Beer）为 LLM Agent 理论母体；匹配度矩阵 16 项 + **被低估 TOP6**（PCT↔RLHF 母体/好调节器定理/必要多样性↔涌现/VSM↔多智能体/兵棋推演↔评估对抗/Orient=重心↔Context Engineering）；含 4 批 20+ 西方一手源 |
+| `references/military-llm-playbook.md` | **v2.5 工程映射+产品路线图层**：现代军事 35 概念（5 支柱，ADP/JP/MCDP/FM/NATO/RAND/CSBA 权威出处）× LLM 6 大工程定律 → 匹配度矩阵（Gap 低估指数）→ **三枚核武器产品方案**（Mosaic-Router 动态稀疏推理 / Cognitive Shield 认知盾 / ACH-Debugger 竞争假设调试）+ OODA 2.0 架构图 + 分阶段产品路线图 + 三大研究方向 + 边界反例 |
 
 ### 尖刀 1：学术级 GEO/AI 深度
 | 文件 | 内容 |
@@ -62,6 +63,7 @@ description: SEO/GEO 流量增长的量化基准数据库与决策模型库。�
 
 ### 架构铁律（v2.2 新增 · 所有全轨任务先过 19 环检查单）
 0. **生命周期闭环**：全轨任务按 system-lifecycle.md 的 19 环节走——**先判 STATE（账号状态机五态：冷启动/验证/成长/稳定/衰退）再定打法**；验证失败走 REPAIR（先修后写，最小改动 ≤10%）；每任务留 TRACE 追溯（≤15 行）；经验按四步提炼（记录→归因→泛化→沉淀），验证有效才入 SKILL。缺任一环=系统断点，禁止交付。
+0b. **军事-LLM 映射纪律（v2.5）**：涉及对抗性场景（竞品分析/评估/系统设计）时，可按 military-llm-playbook.md 引用现代军事概念（OODA/任务式指挥/ACH/马赛克战/认知战等）——**映射须带证据分级（【事实】条令出处 /【推断】逻辑推演）**；主动欺骗类（认知盾）涉合规红线，仅限"爬虫 vs 真人"场景且须过 compliance.md；对抗性思维只用于对抗场景，不用于合作场景（避免零和思维污染）。
 
 ### 铁律（所有输出，优先级 `合规 > 真实 > 用户目标 > 网感风格`）
 1. **引用必标注**：库内数据必带来源+年份/口径（如"Pew 2025，会话级面板"）；库外标【待核实】；时效数据先检索。
