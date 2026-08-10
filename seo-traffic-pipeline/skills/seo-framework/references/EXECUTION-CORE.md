@@ -1,8 +1,8 @@
 # EXECUTION-CORE（单一真源 · 方法论 × 代码最终融合）
 
-> 定位：**本专家包的唯一执行入口**。把全部方法论（孙膑 30 篇 / 军事 35 概念 / 控制论 / 19 环 / 3 尖刀 / 输出规格 / 深度讲解）收敛为 **1 张概念树 + 1 套 9 步流程 + 1 张代码映射表**。其他文件是字典（按需查），本文件是地图（照着走）。
+> 定位：**本专家包的唯一执行入口**。把全部方法论（孙膑 30 篇 / 军事 35 概念 / 控制论 / 19 环 / 3 尖刀 / 输出规格 / 深度讲解 / RSI 自进化）收敛为 **1 张概念树 + 1 套 9 步流程 + 1 张代码映射表 + 1 套自进化闭环**。其他文件是字典（按需查），本文件是地图（照着走）。
 > 原则：**少而准**——每条规则 ≤1 行；概念只讲一次，细节进字典文件；冲突时本文件优先。
-> 版本：v3.0（2026-08-10 最终融合）
+> 版本：v3.2（2026-08-10 最终融合）
 
 ---
 
@@ -22,7 +22,7 @@ L4 交付规格（给人看）：信号卡五字段 · 三层阅读 · 三层表
 L5 进化机制（越打越强）：AAR 复盘 → 经验 → 记忆 → SKILL → RELEASE → BETTER
 ```
 
-**对应文件**（字典，按需查）：L0=compliance ｜ L1=first-principles / benchmarks / research-library ｜ L2=sunbin-core（兵法）+ military-core（军事）｜ L3=system-lifecycle（19 环）+ deep-mapping / military-llm-playbook（理论映射）｜ L4=output-spec + deep-dive（讲解）｜ L5=attribution-rhythm（AAR）+ account-profile-schema（记忆）+ evals（回归）。
+**对应文件**（字典，按需查）：L0=compliance ｜ L1=first-principles / benchmarks / research-library ｜ L2=sunbin-core（兵法）+ military-core（军事）｜ L3=system-lifecycle（19 环）+ deep-mapping / military-llm-playbook（理论映射）+ self-evolving-pipeline（自进化管道）｜ L4=output-spec + deep-dive（讲解）｜ L5=attribution-rhythm（AAR）+ account-profile-schema（记忆）+ evals（回归）+ rsi-protocol（RSI 递归自决策）。
 
 ---
 
@@ -58,7 +58,21 @@ L5 进化机制（越打越强）：AAR 复盘 → 经验 → 记忆 → SKILL �
 
 ---
 
-## ④ 铁律速查（全部规则 → 8 条，每条 ≤1 行）
+## ③-补 自进化闭环（v3.2 新增：三环 + RSI 递归）
+
+```
+环1 单任务（分钟~小时）：执行 → 验证 → REPAIR（先修后写 ≤10%）→ 复测
+环2 周度（AAR 归因）：数据 → 归因 → 权重校准 → 写回基线（verified_weights）
+环3 月度（版本迭代）：evals 回归 → SKILL 更新 → RELEASE → BETTER
+RSI 递归：自评估（evals）→ 自修正（REPAIR，禁改本体）→ 自升级（人闸门）→ 升级后全量回归
+```
+
+**关键**：LLM 执行与提议，人做闸门（SKILL/prompt/模型配置变更必须人工确认）；一切变更走 TRACE 可审计、可回滚。
+**自动化载体**：每日雷达 08:00 / 预警 09:00 / 归因 周一 / 战略 每月 1 号——均已带自进化反馈步骤（TRACE 沉淀）。
+
+---
+
+## ④ 铁律速查（全部规则 → 9 条，每条 ≤1 行）
 
 1. **合规永远赢**：合规 > 真实 > 用户目标 > 网感风格。
 2. **引用必带来源**：数据=来源+年份+口径；库外标【待核实】；时效先检索。
@@ -68,6 +82,7 @@ L5 进化机制（越打越强）：AAR 复盘 → 经验 → 记忆 → SKILL �
 6. **评分可见**：每个因子给取值与理由；三档预期必带触发条件。
 7. **概念 5 层**：定义→原理→机制→操作→反例；涉及 Agent 概念给定义卡。
 8. **附属节制**：网感标题/公众号默认不启用，点名才用，且不稀释学术标准。
+9. **RSI 递归自决策**：产出/变更后自评估（evals）；不过走 REPAIR（禁改本体）；有效才升级（人闸门）；升级后必跑全量回归。
 
 ---
 
