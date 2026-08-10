@@ -696,3 +696,18 @@ Observe(ISR)→Orient(ACH+认知对抗)→Decide(任务式指挥+马赛克编组
 ### 验证
 - 全库 grep 复查：孙膑/威王/庞涓/陈忌/雄牝/篡卒/积疏/奇正/将义等关键词 **0 残留**（growth+pipeline+wiki）。
 - 副本 growth+pipeline diff 全一致；zip 重建无 sunbin 文件；git push f46f9c6。
+
+## 2026-08-10 10:30 体系整洁化（v3.2 完善）
+
+> 用户要求：审核、修复、处理、完善、清晰化和整洁化。
+
+### 本轮处理
+1. **审核**（8 项）：残留/断链/注册/版本/自动化/副本/zip/wiki——4 个自动化 prompt 全部 clean，全库 0 兵法残留（wiki 雷达历史章节除外）。
+2. **修复**：wiki 方法论体系页「替代原中国兵法层」字样清除；10 法则明细表补全（L1-L10，带出处列）。
+3. **完善**：military-core 头部定位升级为「战略法则层唯一来源」（Part 0=10 法则战略推演 / Part 1+=5 域 35+ 方法论 19 环映射）。
+4. **清晰化**：SKILL 新增「版本线说明」——体系版本 v3.2（agent/EXECUTION-CORE/output-spec 同步）vs references 文件修订历史（如 military-core v2.6），二者不冲突，消除版本困惑。
+5. **整洁化**：全库最终复查 0 残留；副本 growth/pipeline/已安装 ×2 diff 全一致；zip 重建无 sunbin。
+
+### 状态
+- git push 9b02876（+17/-4）；wiki 方法论体系页已更新；自动化记忆 + 工作区日志已记录。
+- 体系最终：v3.2 全量现代军事学（无中国古人表达），可交付。
