@@ -228,6 +228,51 @@ function checkContract(): void {
     : fail(`${bad} 处契约不一致`);
 }
 
+/* ---------- 6. 乘法审计（v5.2 极端主义宪法落地：因子到 1.0，不留 0.8） ---------- */
+function checkMultiplication(): void {
+  console.log("[6/6] 乘法审计（极端主义宪法：无单点因子 / 极端表达条款存在）");
+  let bad = 0;
+
+  // ① 思想层无单点：每个字典必须被 ≥2 个其他文件引用（乘法链单点 = 整链为 0 风险）
+  const refsDir = join(GROWTH, "skills/seo-framework/references");
+  const files = readdirSync(refsDir).filter((n) => n.endsWith(".md") && n !== "EXECUTION-CORE.md");
+  const single: string[] = [];
+  for (const f of files) {
+    const name = f.replace(/\.md$/, "");
+    let count = 0;
+    const walk = (dir: string): void => {
+      for (const n of readdirSync(dir)) {
+        if (SKIP_DIRS.has(n)) continue;
+        const p = join(dir, n);
+        const st = statSync(p);
+        if (st.isDirectory()) walk(p);
+        else if (st.isFile() && p.endsWith(".md") && !p.includes(`references/${f}`)) {
+          const c = readFileSync(p, "utf8");
+          count += (c.match(new RegExp(`\\b${name}\\b`, "g")) ?? []).length;
+        }
+      }
+    };
+    walk(GROWTH);
+    if (count < 2) single.push(`${f}（${count} 次）`);
+  }
+  single.length === 0
+    ? pass("全部字典均被 ≥2 个文件引用（无单点因子）")
+    : (single.forEach((s) => fail(`单点因子：${s}——乘法链单点=整链为 0 风险，需挂引用或并入既有文件`)), bad += single.length);
+
+  // ② 极端表达条款必须存在（output-spec 十一 + agent 拒绝清单，防协议回退）
+  const outputSpec = readFileSync(join(GROWTH, "skills/seo-framework/references/output-spec.md"), "utf8");
+  const agentMd = readFileSync(join(GROWTH, "agents/seo-traffic-growth.md"), "utf8");
+  if (!outputSpec.includes("极端表达")) {
+    fail("output-spec 缺「极端表达」章节（v5.2 宪法）");
+    bad++;
+  }
+  if (!agentMd.includes("拒绝清单")) {
+    fail("agent 定义缺「拒绝清单」章节（v5.2 宪法）");
+    bad++;
+  }
+  if (bad === 0) pass("极端表达 + 拒绝清单条款在位");
+}
+
 /* ---------- 5. 字典生命周期（使用率检查，选择压力落地） ---------- */
 function checkLifecycle(): void {
   console.log("[5/6] 字典生命周期（非索引引用 <2 次 → LOW-USE 提示）");
@@ -309,6 +354,7 @@ checkChangelog();
 checkBodyVersion();
 checkContract();
 checkLifecycle();
+checkMultiplication();
 if (release) checkReleaseGate();
 if (build) buildZips();
 
