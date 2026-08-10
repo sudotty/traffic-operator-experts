@@ -120,19 +120,41 @@ function checkSync(): void {
 
 /* ---------- 3. 版本单轨 ---------- */
 function checkVersion(): void {
-  console.log("[3/3] 版本单轨（references 版本行必须 v3.2）");
+  console.log("[3/3] 版本单轨（references 版本行必须 v4.0）");
   const refs = join(GROWTH, "skills/seo-framework/references");
   let bad = 0;
   for (const f of readdirSync(refs).filter((n) => n.endsWith(".md"))) {
     for (const line of readFileSync(join(refs, f), "utf8").split("\n")) {
       const m = /^>\s*版本[：:]\s*(.+)$/.exec(line);
-      if (m && !m[1].includes("v3.2")) {
+      if (m && !m[1].includes("v4.0")) {
         fail(`${f}: ${m[1].trim()}`);
         bad++;
       }
     }
   }
-  bad === 0 ? pass("全部引用文件版本行 = v3.2（修订史在 git）") : fail(`${bad} 个文件版本行非 v3.2`);
+  bad === 0 ? pass("全部引用文件版本行 = v4.0（修订史在 git）") : fail(`${bad} 个文件版本行非 v4.0`);
+}
+
+/* ---------- 4. release 门禁（--release，发布前强制检查） ---------- */
+function checkReleaseGate(): void {
+  console.log("[--release] 发布门禁（evals 记录必须覆盖当前体系版本）");
+  const evalsPath = join(GROWTH, "skills/seo-framework/references/evals.md");
+  const evals = readFileSync(evalsPath, "utf8");
+  // 实测记录表第一列是版本号（| v1.3.0 | ... |）
+  const records = [...evals.matchAll(/^\|\s*(v[\d.]+)\s*\|/gm)].map((m) => m[1]);
+  if (records.length === 0) {
+    fail("evals 实测记录表为空——按 v4.0 协议 RELEASE 前必须完成评估（历史断档按用户决策不补跑）");
+    return;
+  }
+  const latest = records[0];
+  if (!latest.startsWith("v4.")) {
+    fail(
+      `evals 最新记录为 ${latest}，未覆盖当前体系 v4.0——` +
+        `按 v4.0 协议需完成 judge 评估后 RELEASE（历史断档按用户决策不补跑，需人工确认放行）`,
+    );
+  } else {
+    pass(`evals 记录已覆盖 v4.0（最新：${latest}）`);
+  }
 }
 
 /* ---------- 4. 重建 zip（--build） ---------- */
@@ -157,9 +179,11 @@ function buildZips(): void {
 }
 
 const build = process.argv.includes("--build");
+const release = process.argv.includes("--release");
 checkForbidden();
 checkSync();
 checkVersion();
+if (release) checkReleaseGate();
 if (build) buildZips();
 
 console.log(failures === 0 ? "\n✅ VERIFY PASS" : `\n❌ VERIFY FAIL (${failures})`);

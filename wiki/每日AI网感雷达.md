@@ -743,3 +743,19 @@ Observe(ISR)→Orient(ACH+认知对抗)→Decide(任务式指挥+马赛克编组
 ### 验证
 - `npm run verify --build` 全绿：禁词 0 / 副本×3 一致 / 版本单轨全 v3.2 / zip（463 KB + 2165 KB）禁词 0。
 - 4 自动化 prompt：TS ✓ / python 清零 ✓。
+
+## 2026-08-10 12:35 自适应自进化 v4.0 升级（用户：做更自适应自进化的 prompt 和整个产品）
+
+> 用户决策：不补跑 evals 历史回归；直接升级产品为自适应自进化体系。
+
+### 变更内容
+1. **rsi-protocol.md → v4.0**：新增「五环自适应」（输入源权重/评分卡因子/输出格式/测试集/进化提议，信号→调整→依据可审计）+「四工程护栏」（LLM-as-judge 自动评估 / held-out 30% 防污染 / 自博弈对抗 / 防塌缩闸门）+ 研究锚点（Weng 2025 Harness、2508.07407、Gödel Agent、RSEA 2026、Nature 模型塌缩）。
+2. **self-evolving-pipeline.md → v4.0**：harness 级 RSI 定位声明（进化在提示词/工具/工作流/记忆/评估层，不训练权重）+ 自适应机制表 + 进化提议自动化。
+3. **evals.md**：自动化评估协议（judge 双模型互评+人工抽检 / held-out 季度轮换 / 测试集随能力扩展 / 记录纪律；历史断档按用户决策不补跑，自 v4.0 起执行新协议）。
+4. **SKILL / EXECUTION-CORE / agent → v4.0**：概念树 L5 与自进化引擎描述注册 v4.0。
+5. **tools/**：新增 `evolve.ts`（进化提议自动生成器：扫描 TRACE/日志 → 提议清单，人做闸门）；verify.ts 版本检查升级 v4.0 + 新增 `--release` 发布门禁（evals 记录未覆盖当前版本即 FAIL）。
+6. **4 个自动化** prompt 追加「自适应规则（v4.0）」段（结果自适应 / 进化提议 / 防塌缩）。
+
+### 验证
+- `npm run verify --build` 全绿（禁词 0 / 副本×3 / 版本单轨 v4.0 / zip 禁词 0）。
+- `evolve.ts` 实测提取 14 条历史进化提议（A/B/C/D、verify 脚本、evals 自动评分、REDFOX 配置等），供人闸门/月度复盘确认。

@@ -2,7 +2,7 @@
 
 > 定位：把 military-core.md（现代军事战略法则）、concept-hierarchy.md（概念体系）、output-spec.md（交付规格）、research-library.md（学术弹药）**全部翻译为"可讲解、可落地、可追问"的深度详解**。
 > 表达框架：**5W2H（What/Why/When/Where/Who/How/How much）+ 麦肯锡 5 方法论（金字塔原理/MECE/七步成诗/So What-Why So/电梯陈述）**，每条内容配 **比喻（通俗）+ 专业化（术语/数据）+ 产业化（商业场景）+ 实践化（可执行 SOP）**。
-> 版本：v3.2（体系版本线）
+> 版本：v4.0（体系版本线）
 
 ---
 
