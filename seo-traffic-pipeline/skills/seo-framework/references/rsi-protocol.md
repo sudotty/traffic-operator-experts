@@ -26,7 +26,7 @@
 - **触发**：全轨任务交付前 / 每次 skill 变更后。
 - **执行**：跑 evals.md 的 10-prompt 回归（总分 ≥8 且无 critical=0 才通过）+ output-spec 检查单（L1 独立可读/无 N 类噪声/信号卡齐全）。
 - **输出**：评估分 + 失败项清单。
-- **E-Cell 采集（v5.0）**：每次执行同步沉淀 E-Cell（Task/State/Context/Capability/Actions/Observations/Errors/Corrections/Verifier/Cost/Outcome）——TRACE 是 E-Cell 的最小形态，学习原子不是"结论"而是"带评价的执行轨迹"。
+- **E-Cell 采集（v5.1）**：每次执行同步沉淀 E-Cell（Task/State/Context/Capability/Actions/Observations/Errors/Corrections/Verifier/Cost/Outcome）——TRACE 是 E-Cell 的最小形态，学习原子不是"结论"而是"带评价的执行轨迹"。
 
 ### 层2 自修正（评估不过时）
 - **规则**：REPAIR 四步（诊断定位 → 最小改动 ≤10% → 复测 → 记录）；**先修后写**（Tian：修复改 5% 内容 +40%，全量重写改 5 倍更差）。
@@ -34,7 +34,7 @@
 
 ### 层3 自升级（验证有效时）
 - **触发**：同一模式连续 3 次被验证（或证伪）；月度战略复盘。
-- **流程（M-Cell 模板，v5.0）**：每个升级 = 一个 M-Cell：
+- **流程（M-Cell 模板，v5.1）**：每个升级 = 一个 M-Cell：
   ```
   Parent Version → Target Component → Root Cause（证据：失败聚类/频率/影响）
   Proposed Diff → Expected Effect → Eval Dataset

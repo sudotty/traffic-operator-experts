@@ -802,3 +802,19 @@ Observe(ISR)→Orient(ACH+认知对抗)→Decide(任务式指挥+马赛克编组
 ### 上线状态
 - 版本单轨 v5.0（references 9 文件 + 正文全清）；契约 25↔26；副本×3 一致；zip 476KB/2178KB 禁词 0
 - **evals 记录已覆盖 v5.0**（release 门禁 PASS）→ 产品正式具备可发布状态
+
+## 2026-08-10 14:25 业界对齐升级 v5.1（用户：对齐后升级）
+
+> 依据：2026-08-10 调研（Anthropic 官方四条 / OpenAI Eval 方法论 / Claude 自动优化循环 / SemVer 工程指南 / 自进化可控路线），详见仓库根 agent-skill-upgrade-playbook-2026-08.md。
+
+### 变更内容（G1-G8）
+1. **G1 触发召回测试**：evals.md 新增 T1-T8（显式/隐式/上下文扰动/负控制四类）；judge.ts 新增 `--set trigger` 路由判断器模式，通过线 召回≥90%/准确≥85%。**实测基线：8/8 全过（召回 100%/准确 100%/误报 0%）**。
+2. **G4 成本分层**：judge.ts `--tier spot|targeted|full`（先便宜后贵，防 eval 烧钱）。
+3. **G3 四维指标**：judge.ts `--repeat N`（稳定度均值/方差）+ 报告 risk 维度（critical/空回复/解析失败）——效果/稳定/成本/风险四维齐备。
+4. **G2 文件级版本纪律**：新增仓库根 CHANGELOG.md（Keep a Changelog 六类规范）；verify.ts 新增 [3.5/6] CHANGELOG 契约检查（正则 m 标志修复）。
+5. **G5-G8 协议落地**：rsi-protocol 第十章 + self-evolving-pipeline 第九章——description A/B 单变量纪律、compaction SOP（月度）、生产反馈回流、运行时监控。
+6. 版本单轨 v5.0 → v5.1（10 文件版本行 + 正文标注统一）。
+
+### 验证
+- `verify --release --build` 全绿（禁词 0 / 副本×3 / 版本单轨 v5.1 / CHANGELOG 契约 / 契约 25↔26 / evals 覆盖 v5.1 / zip 禁词 0）。
+- judge trigger 8/8（召回 100%）、--tier spot 冒烟正常；push 571e9f6（25 文件 +383/-70）。
