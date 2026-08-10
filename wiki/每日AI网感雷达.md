@@ -681,3 +681,18 @@ Observe(ISR)→Orient(ACH+认知对抗)→Decide(任务式指挥+马赛克编组
 
 ### 数据纪律
 - 本作战包数据全部【事实】带一手来源（易观/腾讯官方/IDC/信通院/艾媒）；刘毅"半个身位"为公开采访原话（同花顺 8/8）；市场预测类（艾媒 6968 亿）标注测算口径。
+
+## 2026-08-10 10:22 体系去兵法化 · 全量转现代军事学（v2.6）
+
+> 用户要求：去掉所有孙膑兵法/中国古人表达，转换为军事学与现代化军事学方法论。
+
+### 变更内容
+1. **删除 `sunbin-core.md`**（源仓库 + pipeline + 已安装副本 4 处全删）。
+2. **military-core.md 新增 Part 0「现代军事战略法则 10 条」**（替代孙膑 10 法则）：
+   IPB 情报驱动蓄势 / 间接路线集中-分散（Liddell Hart）/ 纵深防御先固后攻 / 重心打击资源聚焦（JP 5-0）/ 兵棋推演+任务预演（Red Flag）/ AAR+JLLIS 失败清单 / 作战节奏+条令 / 韧性工程护城河（Hollnagel）/ 主攻+佯动（JP 3-13.4 MILDEC）/ 任务式指挥信任（ADP 6-0）。
+3. **全库兵法表达转现代军事**：agent 战略定位（主/客→攻/守）、EXECUTION-CORE 概念树 L2、SKILL 注册表、system-lifecycle（MODEL/DECISION 环）、deep-dive（10 法则全拆 + 尖刀 2 + 概念 E）、wiki 方法论体系页；《孙子兵法》出处改 MILDEC/拿破仑/Warden。
+4. 版本线：skill v2.6（军事战略法则层为唯一战略内核，含现代军事 5 域 35 概念 + 控制论理论母体 + 军事-LLM 工程映射）。
+
+### 验证
+- 全库 grep 复查：孙膑/威王/庞涓/陈忌/雄牝/篡卒/积疏/奇正/将义等关键词 **0 残留**（growth+pipeline+wiki）。
+- 副本 growth+pipeline diff 全一致；zip 重建无 sunbin 文件；git push f46f9c6。
