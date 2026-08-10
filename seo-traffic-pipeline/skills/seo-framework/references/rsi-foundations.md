@@ -2,7 +2,7 @@
 
 > 定位：本专家包「自进化」的**理论母体层**——回答三个终极问题：进化是什么、怎么选择、如何持久化。rsi-protocol.md（递归纵深+工程护栏）与本文件互为表里：本文件讲**为什么**，协议讲**怎么做**。
 > 核心结论（2026-08 批判性重排）：**Skill 不是唯一原子，真正的 AI 进化原子是「可验证、可继承的能力变化」（Verified Mutation）；RSI 的发动机是 Evidence → Selection → Retention，其中 Selection 比 Variation 更稀缺。**
-> 版本：v5.1（2026-08-10，注入 2026 前沿研究体系）
+> 版本：v5.2（2026-08-10，注入 2026 前沿研究体系）
 
 ---
 
@@ -114,7 +114,7 @@ Capability = f(Knowledge, Skill, Tools, Verification)
 |---|---|---|---|
 | 1 | **Minimal Sufficient Mutation** | 失败后先找 Root Cause，再找最低可修改层，只改足够解决问题的那一层 | REPAIR 升级：按层优先序（见下） |
 | 2 | **Evidence Before Evolution** | NoEvidence ⇒ NoMutation；"我觉得不好"没有意义，必须变成失败聚类+频率+根因 | 铁律 2（引用必带来源）+ 环3 门禁 |
-| 3 | **Verifier Before Optimizer** | 先有 SPEC→VERIFIER→TRACE→BASELINE，再上 OPTIMIZER（Measure→ThenOptimize） | 四护栏（v4.0 引入，v5.1 沿用）+ verify --release 门禁 |
+| 3 | **Verifier Before Optimizer** | 先有 SPEC→VERIFIER→TRACE→BASELINE，再上 OPTIMIZER（Measure→ThenOptimize） | 四护栏（v4.0 引入，v5.2 沿用）+ verify --release 门禁 |
 | 4 | **Skill First, Harness Later** | 企业初期 RSI 从 Skill 改起（面小/易解释/易 Eval/易回滚），Harness 是异构优化问题 | 本包即 Skill-first 实践 |
 | 5 | **Fast Execution, Slow Evolution** | 执行级修复秒-分钟级，进化周-月级；f_execution ≫ f_evolution，防 policy oscillation | 三环节奏（单任务/周/月） |
 | 6 | **Skill 需要选择压力** | 长期无人调用/成功率低/被取代 → Deprecate/Delete；能力库必须会忘 | **新增**：字典生命周期（见六） |
@@ -130,7 +130,7 @@ Knowledge entry → Memory rule → Skill → Tool description/interface → Con
 
 ---
 
-## 六、字典文件生命周期（v5.1：选择压力落地）
+## 六、字典文件生命周期（v5.2：选择压力落地）
 
 每个 references 字典文件遵循生命周期：
 

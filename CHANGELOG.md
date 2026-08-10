@@ -3,6 +3,22 @@
 > 规范：Keep a Changelog 六类（Added / Changed / Deprecated / Removed / Fixed / Security）。
 > 体系版本线（vX.Y）为发布线；文件级修订史由 git 承担。MAJOR 变更（破坏性）必须给出 Migration 说明。
 
+## [v5.2] - 2026-08-10 交互模式（Ask-vs-Act 落地）
+
+### Added
+- 交互模式协议（rsi-protocol 第十一章 + agent 定义 + SKILL 铁律 9）：按「风险 × 可逆性 × 用户在场度」切换自主/提问——定时任务默认全自主 + 例外上报（偏离预期 >30% 才通知）；主动会话在「步1 定目标 / 步4 选战场 / 步8 发布」三处用结构化选项卡片提问（预算 ≤3 个，超限转自主并记录）。
+- 4 个自动化追加「例外上报（Manage-by-Exception）」段。
+- EXECUTION-CORE ③-补 与 ④ 铁律 9 注册 v5.2；verify/plugin.json 版本检查升级 v5.2。
+
+### Changed
+- 版本单轨 v5.1 → v5.2（10 references 版本行 + SKILL/agent 正文 + plugin.json 5.2.0）。
+
+### Fixed
+- （无独立修复；本版本为交互能力新增）
+
+### Deprecated / Removed / Security
+- （无变更）
+
 ## [v5.1] - 2026-08-10 业界对齐升级（G1-G4 落地）
 
 ### Added

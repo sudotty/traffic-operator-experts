@@ -3,7 +3,7 @@
 > 定位：本专家系统的**最高层架构**——一条 19 环节的完整闭环：`GOAL → CONTEXT → STATE → MODEL → DECISION → ACTION → WORLD → EVIDENCE → VERIFICATION → REPAIR → TRACE → EXPERIENCE → MEMORY → SKILL → OPTIMIZATION → EVALUATION → RELEASE → BETTER SYSTEM → (回到 GOAL)`。
 > 本质：**单次任务循环（前 11 环：OODA + PDCA 融合）× 长期学习循环（后 7 环：经验→技能→系统进化）** 的叠加。每一环都对应本库的既有文件或新增协议。
 > 用法：任何全轨任务开始时，把本总纲当作「系统检查单」——确认每一环有对应物；弱环（STATE/REPAIR/TRACE/EXPERIENCE）按本文档新增协议执行。
-> 版本：v5.1（体系版本线）
+> 版本：v5.2（体系版本线）
 
 ---
 
