@@ -790,3 +790,15 @@ Observe(ISR)→Orient(ACH+认知对抗)→Decide(任务式指挥+马赛克编组
 - `npm run verify --build` 全绿（禁词 0 / 副本×3 / 版本单轨 v5.0 / 契约 25↔26 / zip 禁词 0）。
 - **生产基线结论**：judge 校准后评分分布合理；微任务/合规/GEO 结构强（14-16 分），复杂诊断/数据纪律弱（0-2 分）→ 马赛克路由（pro 复杂推理）由建议升级为 P1 必须项。
 - 成本实测：全量 19 题 × 2 调用 ≈ 102k in + 79k out tokens（价格按官方表）。
+
+## 2026-08-10 13:55 上线前审查与修复（用户：深思考+审查+最终版本上线前修复）
+
+### 审查发现并修复
+1. **P0 工具 bug（release 门禁误报）**：verify.ts 取记录表「第一行」当最新 → 误报 v1.2.0 未覆盖 → 修复为取表尾最新记录；修复后 `verify --release` 正确识别 v5.0 基线 ✅
+2. **P0 版本残留（正文 8 处）**：agent 定位「v4.0」与自进化引擎「v5.0」同句矛盾、self-evolving-pipeline 标题 v4.0、EXECUTION-CORE ③-补 v3.2、SKILL 铁律 9 v3.2、rsi-protocol 四/五章 v4.0、rsi-foundations 四护栏标注 → 全部统一 v5.0（历史"引入/沿用"标注保留）
+3. **自动化一致性**：4 个自动化「自适应规则（v4.0）」→「（v5.0）」
+4. **回归**：judge adversarial 2/2 ✅、evolve 19 条提议 ✅、verify --release --build 全绿 ✅
+
+### 上线状态
+- 版本单轨 v5.0（references 9 文件 + 正文全清）；契约 25↔26；副本×3 一致；zip 476KB/2178KB 禁词 0
+- **evals 记录已覆盖 v5.0**（release 门禁 PASS）→ 产品正式具备可发布状态

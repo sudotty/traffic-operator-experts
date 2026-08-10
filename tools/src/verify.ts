@@ -204,13 +204,13 @@ function checkReleaseGate(): void {
   console.log("[--release] 发布门禁（evals 记录必须覆盖当前体系版本）");
   const evalsPath = join(GROWTH, "skills/seo-framework/references/evals.md");
   const evals = readFileSync(evalsPath, "utf8");
-  // 实测记录表第一列是版本号（| v1.3.0 | ... |）
+  // 实测记录表第一列是版本号（| v5.0 | ... |）；记录按时间追加，最新在表尾
   const records = [...evals.matchAll(/^\|\s*(v[\d.]+)\s*\|/gm)].map((m) => m[1]);
   if (records.length === 0) {
     fail("evals 实测记录表为空——按 v5.0 协议 RELEASE 前必须完成评估（历史断档按用户决策不补跑）");
     return;
   }
-  const latest = records[0];
+  const latest = records[records.length - 1]; // 最新记录在表尾（追加式）
   if (!latest.startsWith("v5.")) {
     fail(
       `evals 最新记录为 ${latest}，未覆盖当前体系 v5.0——` +

@@ -114,7 +114,7 @@ Capability = f(Knowledge, Skill, Tools, Verification)
 |---|---|---|---|
 | 1 | **Minimal Sufficient Mutation** | 失败后先找 Root Cause，再找最低可修改层，只改足够解决问题的那一层 | REPAIR 升级：按层优先序（见下） |
 | 2 | **Evidence Before Evolution** | NoEvidence ⇒ NoMutation；"我觉得不好"没有意义，必须变成失败聚类+频率+根因 | 铁律 2（引用必带来源）+ 环3 门禁 |
-| 3 | **Verifier Before Optimizer** | 先有 SPEC→VERIFIER→TRACE→BASELINE，再上 OPTIMIZER（Measure→ThenOptimize） | v4.0 四护栏 + verify --release 门禁 |
+| 3 | **Verifier Before Optimizer** | 先有 SPEC→VERIFIER→TRACE→BASELINE，再上 OPTIMIZER（Measure→ThenOptimize） | 四护栏（v4.0 引入，v5.0 沿用）+ verify --release 门禁 |
 | 4 | **Skill First, Harness Later** | 企业初期 RSI 从 Skill 改起（面小/易解释/易 Eval/易回滚），Harness 是异构优化问题 | 本包即 Skill-first 实践 |
 | 5 | **Fast Execution, Slow Evolution** | 执行级修复秒-分钟级，进化周-月级；f_execution ≫ f_evolution，防 policy oscillation | 三环节奏（单任务/周/月） |
 | 6 | **Skill 需要选择压力** | 长期无人调用/成功率低/被取代 → Deprecate/Delete；能力库必须会忘 | **新增**：字典生命周期（见六） |
