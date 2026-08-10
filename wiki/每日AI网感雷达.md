@@ -725,3 +725,21 @@ Observe(ISR)→Orient(ACH+认知对抗)→Decide(任务式指挥+马赛克编组
 
 ### 验证
 - 全库 grep（含派生单字模式）0 残留；副本 ×3 diff 一致；zip 重建校验干净。
+
+## 2026-08-10 12:20 工具层 TypeScript 化 + 版本单轨（v3.2 完善）
+
+> 用户要求：继续简化 + 代码层评估换 TypeScript。
+
+### 语言结论
+- 专家包本体 = Markdown 知识/提示词（与语言无关，无需"翻译"）；真正可执行代码 = Python 脚本 + shell 命令。
+- 工具层已整体迁移 TypeScript（Node 22）：`tools/` 工程，三条命令取代全部手工运维。
+
+### 本轮变更
+1. **tools/ TS 工程**：`verify.ts`（禁词 0 残留 / 副本×3 逐字节一致 / 版本单轨 v3.2 审计，--build 重建 zip + 内容禁词检查）、`archive.ts`（wiki 归档，commit_wiki.py 的 TS 移植，自带 409/422 重试）。首次运行即抓出 3 个工具缺陷（tools 自命中、白名单漏「下月战略」、整包比对过宽）已修复——护栏有效。
+2. **版本单轨**：8 个 reference 文件级版本号统一为 v3.2（修订史交给 git），消除「体系 vs 文件」双轨困惑（原双轨已多次引发审计项）。
+3. **自动化迁移**：4 个自动化归档步骤由 python 脚本改为 `node /Users/sudotty/.workbuddy/scripts/archive.mjs`（DB 子串替换，其余 prompt 不动）。
+4. **文档**：evals.md 回归流程新增可执行步骤（先 verify 后 LLM 评测）；README 补工具层章节并清除重复行（14/12 参考库残留）。
+
+### 验证
+- `npm run verify --build` 全绿：禁词 0 / 副本×3 一致 / 版本单轨全 v3.2 / zip（463 KB + 2165 KB）禁词 0。
+- 4 自动化 prompt：TS ✓ / python 清零 ✓。

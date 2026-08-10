@@ -1,0 +1,18 @@
+{
+  "name": "traffic-operator-tools",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "流量操盘手专家包 · 运维工具层（TypeScript）：wiki 归档 / 审计护栏 / zip 构建",
+  "scripts": {
+    "build": "tsc",
+    "verify": "node dist/verify.js",
+    "check": "node dist/verify.js",
+    "archive": "node dist/archive.js",
+    "zip": "node dist/verify.js --build"
+  },
+  "devDependencies": {
+    "@types/node": "^26.2.0",
+    "typescript": "^5.5.0"
+  }
+}

@@ -45,8 +45,8 @@
 - **三层嵌套 OODA**：L0 单篇天级迭代 / L1 账号周级归因 / L2 定位月季级战略，胜负手是循环速度
 - **活数据协议**：取数顺序 用户提供 > 实时检索 > 库内基准 > 标待核实，按新鲜度 TTL 分级
 - **网感雷达 + 每周归因**：写稿前扫当前爆款；对账→三层归因→权重校准写回基线
-- **14 个内置参考库**：原理层、行业数据基准、业务路由、合规库、标题钩子库、GEO 自测、回归评测集等
-- **12 个内置参考库**：行业数据基准（含来源口径）、业务路由矩阵、合规库、标题钩子库、回归评测集等
+- **25 个参考库字典**：单一真源 EXECUTION-CORE（概念树/9 步流程/铁律）+ 原理层、行业数据基准、业务路由、合规库、标题钩子库、GEO 自测、回归评测集等按需加载
+- **TypeScript 工具层**（`tools/`）：`npm run verify` 审计护栏（禁词/副本同步/版本单轨）· `npm run zip` 重建 zip · `npm run archive` wiki 归档
 
 ## 安装到 WorkBuddy
 
@@ -58,6 +58,18 @@
 
 **方式二（ClawHub 上架后）**：在推荐市场搜索"流量操盘手"一键安装。
 
+## 工具层（TypeScript，运维三命令）
+
+```bash
+cd tools
+npm install          # 首次（typescript + @types/node）
+npm run verify       # 审计护栏：禁词 0 残留 + 副本×3 同步 + 版本单轨 v3.2
+npm run zip          # 重建 seo-traffic-growth.zip / seo-traffic-pipeline.zip + 内容禁词检查
+npm run archive -- <repo> <page_path> <section_file> [msg]   # 追加 wiki 章节（gh API，自带 409 重试）
+```
+
+`verify` 把原来 4 轮人工审计（grep 禁词 → diff 副本 → 版本核对 → 重建 zip）固化为一条命令，全绿（exit 0）才算可交付。
+
 ## 目录结构
 
 ```
@@ -65,14 +77,17 @@ traffic-operator-experts/
 ├── seo-traffic-growth/          # 流量操盘手（Agent 单专家）
 │   ├── .codebuddy-plugin/plugin.json
 │   ├── agents/seo-traffic-growth.md
-│   ├── skills/seo-framework/    # 12 个参考库
+│   ├── skills/seo-framework/    # 参考库字典（25 文件，EXECUTION-CORE 为单一真源）
 │   └── avatars/
-└── seo-traffic-pipeline/        # 流量操盘手产线（Team 四岗团队）
-    ├── .codebuddy-plugin/plugin.json
-    ├── settings.json
-    ├── agents/                  # 主理人 + 4 团员
-    ├── skills/seo-framework/    # 同一套参考库
-    └── avatars/
+├── seo-traffic-pipeline/        # 流量操盘手产线（Team 四岗团队）
+│   ├── .codebuddy-plugin/plugin.json
+│   ├── settings.json
+│   ├── agents/                  # 主理人 + 4 团员
+│   ├── skills/seo-framework/    # 同一套参考库（verify 保证逐字节一致）
+│   └── avatars/
+├── tools/                       # TypeScript 工具层（archive / verify / zip）
+├── wiki/                        # 知识归档（每日雷达/方法论体系/数据基线等）
+└── scripts/                     # 历史脚本（已被 tools/ 取代，保留备查）
 ```
 
 ## 作者

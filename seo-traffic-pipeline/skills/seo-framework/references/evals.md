@@ -29,7 +29,8 @@
 
 ## 回归流程
 
-1. 修改任何文件后，先跑 validate + register
+0. **可执行回归（先跑，秒级）**：`cd tools && npm run verify`（禁词/副本同步/版本单轨）→ `npm run zip`（重建 zip + 内容禁词）——全绿才进 LLM 评测；`npm run archive` 归档 wiki 章节。
+1. 修改任何文件后，先跑 verify + 逐条测试
 2. 逐条测试，按 rubric 打分，填入记录表
 3. 得分下降或 critical 失败 → 回滚或修复后重测
 4. 用 métapromptisation 加速修复：把失败 case 和症状喂给模型，让它提议对 MD 的最小修订，人工确认后再改

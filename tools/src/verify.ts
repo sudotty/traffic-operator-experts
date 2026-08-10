@@ -1,0 +1,166 @@
+/**
+ * verify.ts — 专家包审计护栏（取代人工 grep/diff 四轮审计）
+ *
+ * Checks:
+ *   1. 禁词检查   全库（源仓库 + 已安装副本）无古典军事词汇残留（复合词 + 派生单字），行级白名单过滤已知误报
+ *   2. 副本同步   seo-traffic-growth / seo-traffic-pipeline / 已安装 ×2 逐字节一致
+ *   3. 版本单轨   references/*.md 的「> 版本：」行必须为 v3.2（修订史交给 git）
+ *   4. --build   重建两个 zip（ditto keepParent）+ zip 内容禁词检查
+ *
+ * Usage:
+ *   node dist/verify.js            # 只审计
+ *   node dist/verify.js --build    # 审计 + 重建 zip
+ */
+import { execFileSync, execSync } from "node:child_process";
+import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
+import { homedir } from "node:os";
+import { dirname, join, relative, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
+
+const DIST = dirname(fileURLToPath(import.meta.url));
+const REPO = resolve(DIST, "../.."); // tools/dist -> tools -> repo root
+const INST = join(homedir(), ".workbuddy/plugins/marketplaces/my-experts/plugins");
+const ZIPS = [resolve(REPO, "../seo-traffic-growth.zip"), resolve(REPO, "../seo-traffic-pipeline.zip")];
+
+const SKIP_DIRS = new Set([".git", "node_modules", "dist"]);
+const SKIP_DIRS_FORBIDDEN = new Set([...SKIP_DIRS, "tools"]); // tools 是开发工具，非包内容
+const GROWTH = join(REPO, "seo-traffic-growth");
+const PIPELINE = join(REPO, "seo-traffic-pipeline");
+const INST_GROWTH = join(INST, "seo-traffic-growth");
+const INST_PIPELINE = join(INST, "seo-traffic-pipeline");
+const SKILL_REL = "skills/seo-framework"; // 4 副本唯一需要逐字节一致的子目录
+
+/** 禁词：复合词 + 派生单字（与 2026-08-10 清零审计同源） */
+const FORBIDDEN =
+  /孙膑|兵法|sunbin|孙子|兵家|奇正|正奇|虚实|攻虚|避实|击虚|知己知彼|百战不殆|田忌|围魏救赵|三十六计|韬略|诡道|用兵|阵法|不战而屈|军师|奇谋|将帅|声东击西|暗渡陈仓|欲擒故纵|瞒天过海|借刀杀人|以逸待劳|趁火打劫|釜底抽薪|调虎离山|空城计|反间计|威王|庞涓|陈忌|雄牝|篡卒|积疏|将义|客主人分|兵失|兵情|势备|月战|八阵|地葆|行篡|杀士|延气|官一|略甲|五名五恭|将德|将败|将失|五度九夺|擒庞涓|十阵|十问|五教法|因势利导|战胜而强立|必攻不守|以义立威|我专敌分|义立|以义|正:奇|定正|奇实验|为正/i;
+
+/** 行级白名单：已知误报（正常中文词汇中的子串命中） */
+const WHITELIST = /每月战略复盘|下月战略|上月战略|新奇实验|正餐|设定正确/;
+
+let failures = 0;
+
+function fail(msg: string): void {
+  failures++;
+  console.error(`  ✗ ${msg}`);
+}
+function pass(msg: string): void {
+  console.log(`  ✓ ${msg}`);
+}
+
+function listFiles(root: string, out: string[] = [], base = root, skipDirs = SKIP_DIRS): string[] {
+  for (const name of readdirSync(root)) {
+    if (skipDirs.has(name)) continue;
+    const p = join(root, name);
+    const st = statSync(p);
+    if (st.isDirectory()) listFiles(p, out, base, skipDirs);
+    else if (st.isFile()) out.push(p);
+  }
+  return out;
+}
+
+/* ---------- 1. 禁词检查 ---------- */
+function checkForbidden(): void {
+  console.log("[1/3] 禁词检查（源仓库 + 已安装副本）");
+  const roots = [REPO, INST_GROWTH, INST_PIPELINE];
+  let hits = 0;
+  for (const root of roots) {
+    if (!existsSync(root)) continue;
+    for (const file of listFiles(root, [], root, SKIP_DIRS_FORBIDDEN)) {
+      const content = readFileSync(file, "utf8");
+      const lines = content.split("\n");
+      for (let i = 0; i < lines.length; i++) {
+        const line = lines[i];
+        if (WHITELIST.test(line)) continue;
+        if (FORBIDDEN.test(line)) {
+          hits++;
+          console.error(`    ${relative(REPO, file)}:${i + 1}: ${line.trim().slice(0, 80)}`);
+        }
+      }
+    }
+  }
+  hits === 0 ? pass("0 禁词残留") : fail(`${hits} 处命中（见上）`);
+}
+
+/* ---------- 2. 副本同步（只比 skills/seo-framework 子目录） ---------- */
+function compareDir(a: string, b: string, label: string): void {
+  const sub = join(a, SKILL_REL);
+  if (!existsSync(sub) || !existsSync(join(b, SKILL_REL))) {
+    fail(`${label}: skills 目录缺失 (${relative(REPO, a)} / ${relative(REPO, b)})`);
+    return;
+  }
+  const fa = listFiles(sub).map((f) => relative(sub, f));
+  const fb = new Set(listFiles(join(b, SKILL_REL)).map((f) => relative(join(b, SKILL_REL), f)));
+  let bad = 0;
+  for (const rel of fa) {
+    if (!fb.has(rel)) {
+      fail(`${label}: ${rel} 缺失于 ${relative(REPO, b)}`);
+      bad++;
+      continue;
+    }
+    const ca = readFileSync(join(sub, rel));
+    const cb = readFileSync(join(b, SKILL_REL, rel));
+    if (!ca.equals(cb)) {
+      fail(`${label}: ${rel} 内容不一致`);
+      bad++;
+    }
+  }
+  for (const rel of fb) if (!fa.includes(rel)) {
+    fail(`${label}: ${rel} 为 ${relative(REPO, b)} 独有`);
+    bad++;
+  }
+  if (bad === 0) pass(label);
+}
+
+function checkSync(): void {
+  console.log("[2/3] 副本同步（growth == pipeline == 已安装 ×2）");
+  compareDir(GROWTH, PIPELINE, "growth vs pipeline");
+  compareDir(GROWTH, INST_GROWTH, "growth vs 已安装 growth");
+  compareDir(GROWTH, INST_PIPELINE, "growth vs 已安装 pipeline");
+}
+
+/* ---------- 3. 版本单轨 ---------- */
+function checkVersion(): void {
+  console.log("[3/3] 版本单轨（references 版本行必须 v3.2）");
+  const refs = join(GROWTH, "skills/seo-framework/references");
+  let bad = 0;
+  for (const f of readdirSync(refs).filter((n) => n.endsWith(".md"))) {
+    for (const line of readFileSync(join(refs, f), "utf8").split("\n")) {
+      const m = /^>\s*版本[：:]\s*(.+)$/.exec(line);
+      if (m && !m[1].includes("v3.2")) {
+        fail(`${f}: ${m[1].trim()}`);
+        bad++;
+      }
+    }
+  }
+  bad === 0 ? pass("全部引用文件版本行 = v3.2（修订史在 git）") : fail(`${bad} 个文件版本行非 v3.2`);
+}
+
+/* ---------- 4. 重建 zip（--build） ---------- */
+function buildZips(): void {
+  console.log("[--build] 重建 zip + 内容禁词检查");
+  for (const [pkg, zip] of [
+    ["seo-traffic-growth", ZIPS[0]],
+    ["seo-traffic-pipeline", ZIPS[1]],
+  ] as const) {
+    execFileSync("ditto", ["-c", "-k", "--keepParent", join(REPO, pkg), zip], { stdio: "pipe" });
+    // grep -c 在 0 命中时退出码为 1，需 || true 兜底；先剔除白名单行再数禁词
+    const wl = WHITELIST.source;
+    const out = execSync(
+      `unzip -p "${zip}" | grep -vE '${wl}' | grep -ciE '${FORBIDDEN.source}' || true`,
+      { encoding: "utf8", shell: "/bin/zsh" },
+    ).trim();
+    const size = statSync(zip).size;
+    out === "0" || out === ""
+      ? pass(`${pkg}.zip 重建完成（${(size / 1024).toFixed(0)} KB），禁词 0`)
+      : fail(`${pkg}.zip 禁词命中 ${out} 处`);
+  }
+}
+
+const build = process.argv.includes("--build");
+checkForbidden();
+checkSync();
+checkVersion();
+if (build) buildZips();
+
+console.log(failures === 0 ? "\n✅ VERIFY PASS" : `\n❌ VERIFY FAIL (${failures})`);
+process.exit(failures === 0 ? 0 : 1);
