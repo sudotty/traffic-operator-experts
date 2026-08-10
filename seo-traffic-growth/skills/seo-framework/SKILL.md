@@ -21,6 +21,7 @@ description: SEO/GEO 流量增长的量化基准数据库与决策模型库。�
 |---|---|
 | `references/system-lifecycle.md` | **v2.2 系统架构**：GOAL→CONTEXT→STATE→MODEL→DECISION→ACTION→WORLD→EVIDENCE→VERIFICATION→REPAIR→TRACE→EXPERIENCE→MEMORY→SKILL→OPTIMIZATION→EVALUATION→RELEASE→BETTER SYSTEM 闭环；每环 5W2H 详解 + 对应文件 + 强弱标注；**新增 4 弱环协议**（STATE 账号状态机五态 / REPAIR 修复四步 / TRACE 追溯格式 / EXPERIENCE 经验提炼四步） |
 | `references/military-core.md` | **v2.3 军事方法论层**：军事领域方法论穷举（情报/执行/指挥/评估/战略 5 域 30+ 条）× 19 环映射 × 8 个深度结合（AAR 复盘/情报周期+PIR/任务式指挥/ACH/重心/兵棋推演/杀伤链/条令）；每条 5W2H+比喻+四化；系统注入「情报-执行-复盘」三环强 |
+| `references/deep-mapping.md` | **v2.4 理论母体层**：军事方法论 × LLM 第一性原理深度映射——控制论家族（Wiener/Ashby/Powers/Beer）为 LLM Agent 理论母体；匹配度矩阵 16 项 + **被低估 TOP6**（PCT↔RLHF 母体/好调节器定理/必要多样性↔涌现/VSM↔多智能体/兵棋推演↔评估对抗/Orient=重心↔Context Engineering）；含 4 批 20+ 西方一手源 |
 
 ### 尖刀 1：学术级 GEO/AI 深度
 | 文件 | 内容 |
