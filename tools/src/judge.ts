@@ -52,7 +52,7 @@ const RUBRIC = [
 ].map((r) => ({ ...r, labelEn: r.key }));
 const PASS_LINE = 13;
 
-interface ModelCfg { id: string; name: string; vendor: string; url: string; apiKey: string; reasoning?: { defaultEffort?: string } }
+interface ModelCfg { id: string; name: string; vendor: string; url: string; apiKey: string; reasoning?: { defaultEffort?: string }; priceIn?: number; priceOut?: number }
 interface Question { id: string; text: string; note: string }
 interface TriggerQ { id: string; text: string; expect: boolean; note: string }
 interface Score { [key: string]: number }
@@ -423,9 +423,12 @@ async function main(): Promise<void> {
         console.log(`得分 ${mean.toFixed(1)}/16${r.criticalFail ? " ⚠️CRITICAL" : ""}${repeat > 1 ? ` σ=${std.toFixed(1)}` : ""}`);
       }
       if (!dryRun && !r.error && budget !== Infinity) {
-        const est = (tokensIn / 1e6) * 0 + (tokensOut / 1e6) * 0;
+        // 真实成本估算（v5.2 修复：原价格乘数为 0 导致 budget 从未生效；价格来自 models.json priceIn/priceOut，USD/1M tokens）
+        const pi = producer.priceIn ?? 0, po = producer.priceOut ?? 0;
+        const ji = judgeCfg.priceIn ?? 0, jo = judgeCfg.priceOut ?? 0;
+        const est = (tokensIn / 1e6) * (pi + ji) + (tokensOut / 1e6) * (po + jo);
         if (est > budget) {
-          console.log(`BUDGET_EXCEEDED: 估算成本 ${est.toFixed(4)} USD > ${budget}`);
+          console.log(`BUDGET_EXCEEDED: 估算成本 $${est.toFixed(4)} > $${budget}`);
           break;
         }
       }
