@@ -2,7 +2,8 @@
 
 > 定位：系统「自进化 + 自适应」的安全引擎——**自评估 → 自修正 → 自升级** 三层递归（纵深）+ **五环自适应**（宽度），每层有人工闸门，杜绝黑盒自我修改。
 > 与 self-evolving-pipeline.md 的关系：pipeline 定义「三环时间尺度」（单任务/周度/月度）+ 自适应载体，本文件定义「递归纵深 + 自适应机制 + 工程护栏」。
-> 版本：v4.0（2026-08-10 自适应自进化升级；依据 2025-2026 RSI 研究审计）
+> 理论母体：`rsi-foundations.md`（六原子 / VSV 公式 / C-E-M 三 Cell / 七方法论）——本文件是它的执行协议。
+> 版本：v5.0（2026-08-10 证据驱动能力进化升级）
 
 ---
 
@@ -25,6 +26,7 @@
 - **触发**：全轨任务交付前 / 每次 skill 变更后。
 - **执行**：跑 evals.md 的 10-prompt 回归（总分 ≥8 且无 critical=0 才通过）+ output-spec 检查单（L1 独立可读/无 N 类噪声/信号卡齐全）。
 - **输出**：评估分 + 失败项清单。
+- **E-Cell 采集（v5.0）**：每次执行同步沉淀 E-Cell（Task/State/Context/Capability/Actions/Observations/Errors/Corrections/Verifier/Cost/Outcome）——TRACE 是 E-Cell 的最小形态，学习原子不是"结论"而是"带评价的执行轨迹"。
 
 ### 层2 自修正（评估不过时）
 - **规则**：REPAIR 四步（诊断定位 → 最小改动 ≤10% → 复测 → 记录）；**先修后写**（Tian：修复改 5% 内容 +40%，全量重写改 5 倍更差）。
@@ -32,7 +34,13 @@
 
 ### 层3 自升级（验证有效时）
 - **触发**：同一模式连续 3 次被验证（或证伪）；月度战略复盘。
-- **流程**：提议 → 人工确认 → 写 SKILL/基线 → 版本增量（changelog）→ **全量 evals 回归** → RELEASE。
+- **流程（M-Cell 模板，v5.0）**：每个升级 = 一个 M-Cell：
+  ```
+  Parent Version → Target Component → Root Cause（证据：失败聚类/频率/影响）
+  Proposed Diff → Expected Effect → Eval Dataset
+  Held-out Result → Regression Result → Cost Delta → Risk Delta → Rollback Pointer
+  ```
+  完整动作：提议 → 人工确认 → 写 SKILL/基线 → M-Cell 入 changelog → **全量 evals 回归** → RELEASE。
 - **边界**：**人做闸门**——LLM 提议、人放行；一切变更走 TRACE 可审计；可回滚（git/zip）。
 
 ---
@@ -76,7 +84,23 @@
 
 ---
 
-## 六、RSI 决策原则（有疑问时的自决策规则）
+## 六、七方法论速查（v5.0 执行纪律，详见 rsi-foundations.md 第五节）
+
+| # | 方法论 | 一句话执行 |
+|---|---|---|
+| 1 | Minimal Sufficient Mutation | 失败后先根因，再按层优先序（Knowledge→Memory→Skill→Tool→Context→Verifier→Harness→Model）只改最低够用层；Δ* = Smallest Change s.t. Problem Solved |
+| 2 | Evidence Before Evolution | NoEvidence ⇒ NoMutation；"我觉得不好"必须变成失败聚类+频率+根因 |
+| 3 | Verifier Before Optimizer | 先 SPEC→VERIFIER→TRACE→BASELINE，再 OPTIMIZER；Measure → ThenOptimize |
+| 4 | Skill First, Harness Later | 进化从 Skill 层改起（面小/易解释/易 Eval/易回滚），Harness 留待成熟 |
+| 5 | Fast Execution, Slow Evolution | 执行修复秒-分钟级，进化周-月级；f_execution ≫ f_evolution，防 policy oscillation |
+| 6 | Skill 选择压力 | 字典文件生命周期 ACTIVE→LOW-USE→DEPRECATED→MERGED/DELETED；能力库必须会忘 |
+| 7 | Capability Composition | Thin Agent + 厚 Capability Cells；组合能力，不无限造 Agent |
+
+**总公式**：RSI = Trace + RootCause + CandidateMutation + HeldOutEval + VersionedPromotion；**EvolutionRate ≤ SelectionQuality**（选择比变异更稀缺，Verifier 战略权重最高）。
+
+---
+
+## 七、RSI 决策原则（有疑问时的自决策规则）
 
 1. **证据优先**：数据能判的，用数据判（A/B 对比/回归分），不靠感觉。
 2. **最小改动**：能改 5% 不重写 100%；能改参数不改结构。
@@ -86,13 +110,13 @@
 
 ---
 
-## 七、一句话
+## 八、一句话
 
-> RSI = 让系统「每次任务都变聪明一点」，且聪明得有证据、有闸门、可回滚——不是黑盒进化，是**受控递归 + 环境跟随**：感知自己 → 评估自己 → 修正自己 → 升级自己 → 再评估。
+> RSI = 让系统「每次任务都变聪明一点」，且聪明得有证据、有闸门、可回滚——不是黑盒进化，是**受控递归 + 环境跟随**：感知自己 → 评估自己 → 修正自己 → 升级自己 → 再评估。真正的进化原子不是 Skill 本身，而是**可验证、可继承的能力变化**（Verified Mutation）。
 
 ---
 
-## 八、研究锚点（2025-2026，升级依据）
+## 九、研究锚点（2025-2026，升级依据）
 
 - **Harness 级定位**：Lilian Weng《Harness 工程与自我改进》（Thinking Machines 2025）——近中期 RSI 主战场是围绕模型的 Harness（工作流/工具/上下文/状态/评估），非模型自改权重；本系统即 harness 级 RSI。
 - **闭环框架**：Fang et al.《A Comprehensive Survey of Self-Evolving AI Agents》（arXiv:2508.07407, 2025）——输入/智能体/环境/优化器四模块；安全=沙箱+可追溯+回滚+风险比例监督。

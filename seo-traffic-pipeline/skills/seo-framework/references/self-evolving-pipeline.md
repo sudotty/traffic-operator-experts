@@ -3,7 +3,8 @@
 > 定位：把「9 步执行流程」（人驱动的 check-list）升级为 **LLM 驱动的自适应自进化管道**——每步有明确模型角色 + 自动化载体 + 自进化反馈环 + 自适应调整点。回答："能否把每一步用配置好的 LLM 最好自进化？"——**能，且 v4.0 起在部分环节自动执行**。
 > **定位声明（2026-08-10 审计后）**：本系统为 **harness 级 RSI**——进化发生在提示词/工具/工作流/记忆/评估层（Lilian Weng 2025：近中期 RSI 主战场是 Harness 工程），**不训练模型权重**；权重级进化不在本包范围。
 > 现状（2026-08-10）：模型 = `deepseek-v4-flash`（supportsToolCall ✅ / supportsReasoning ✅）；4 个自动化已跑在该模型上（雷达 08:00 / 预警 09:00 / 归因 周一 / 战略 每月 1 号）。
-> 版本：v4.0（2026-08-10 自适应升级）
+> 理论母体：`rsi-foundations.md`（六原子 / VSV / C-E-M 三 Cell）；执行协议：`rsi-protocol.md`。
+> 版本：v5.0（2026-08-10 证据驱动能力进化升级）
 
 ---
 
@@ -54,7 +55,7 @@
 
 ---
 
-## 四、自适应机制（v4.0 新增：五环自适应 + 进化提议自动化）
+## 四、自适应机制（v5.0 五环自适应 + 进化提议自动化）
 
 自适应 = 不等人工变更，系统随环境反馈自动微调；与自进化（三环）正交叠加：
 
@@ -70,7 +71,34 @@
 
 ---
 
-## 五、落地建议（三档，从现状出发）
+## 五、Fast Execution, Slow Evolution 节奏（v5.0 方法论 5 落地）
+
+| 频率 | 动作 | 载体 | 纪律 |
+|---|---|---|---|
+| 秒-分钟 | 执行级 REPAIR（最小充分修改，按层优先序） | 环1 REPAIR | 不每失败都改 Skill——先根因，再最低层 |
+| 小时-天 | Experience 提取（E-Cell 沉淀） | TRACE / 自动化记忆 | 失败即记录，留痕不决策 |
+| 天-周 | Skill Candidate（进化提议） | evolve.ts 自动生成 | 人闸门确认 |
+| 周-月 | Harness/权重优化（环2 校准） | 归因自动化 | 证据驱动，写回基线 |
+| 月-季 | 架构/版本进化（环3 RELEASE） | evals + verify --release | M-Cell 模板 + 全量回归 |
+| 季 | 字典生命周期盘点（选择压力） | verify 使用率提示 | ACTIVE→DEPRECATED→MERGED/DELETED |
+
+**防 policy oscillation**：f_execution ≫ f_evolution——执行层可以快改，能力层必须慢进化。
+
+---
+
+## 六、三 Cell 映射（v5.0：Capability/Experience/Evolution 三分）
+
+| 理论 Cell | 本包落地 | 说明 |
+|---|---|---|
+| **C-Cell 能力单元** | `references/` 25 字典（Skill+Knowledge）+ `tools/`（Verifier：verify/archive/evolve）+ Policy（人闸门） | CapabilityHub = "组织会什么" |
+| **E-Cell 经验单元** | TRACE + 自动化记忆 + 账号基线（Evaluated Trajectory） | ExperienceHub = "组织经历过什么"，外部难复制的私有资产 |
+| **M-Cell 进化单元** | git 版本线 + changelog（Parent/Diff/RootCause/Eval/Rollback） | Evolution Engine：evolve.ts 提议 → evals/verify 选择 → git 保留 |
+
+闭环：**Capability → Work → Evidence → Experience → Mutation → Verified Capability'**（能力 → 执行 → 证据 → 经验 → 进化候选 → 独立验证后晋升）。
+
+---
+
+## 七、落地建议（三档，从现状出发）
 
 ### P0（本周，零新基建）：环1 单任务内自进化
 - 已有：4 自动化在 deepseek-v4-flash 上跑。
@@ -89,7 +117,7 @@
 
 ---
 
-## 六、自进化的边界（不越界原则）
+## 八、自进化的边界（不越界原则）
 
 1. **人做闸门**：LLM 提议、人放行——权重校准、SKILL 更新、模型配置必须人工确认（任务式指挥：意图+边界）。
 2. **验证有效才沉淀**：经验/权重/打法未经验证不入基线（防污染，环3 门禁）。

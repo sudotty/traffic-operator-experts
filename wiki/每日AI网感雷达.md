@@ -759,3 +759,18 @@ Observe(ISR)→Orient(ACH+认知对抗)→Decide(任务式指挥+马赛克编组
 ### 验证
 - `npm run verify --build` 全绿（禁词 0 / 副本×3 / 版本单轨 v4.0 / zip 禁词 0）。
 - `evolve.ts` 实测提取 14 条历史进化提议（A/B/C/D、verify 脚本、evals 自动评分、REDFOX 配置等），供人闸门/月度复盘确认。
+
+## 2026-08-10 12:45 证据驱动能力进化 v5.0（用户：注入 RSI 批判性重排思想，做最后完整完成）
+
+> 思想来源：Evidence-Driven Capability Evolution——六原子 ontology / VSV 公式（Variation×Selection×Retention）/ C-E-M 三 Cell / Selection 优先 / 七方法论 / 四面体。17 个 2026 前沿来源（SkillOpt / EvoSkills / Dynamic Agent Skills / PlugMem / SelfMem / Agent Lightning / Harness Evolution / OSWorld 2.0 / NVIDIA harness / GitHub Agent Finder 等）。
+
+### 变更内容
+1. **新增 `references/rsi-foundations.md`**（RSI 第一性原理底座）：六原子（认知/状态/动作/行为/学习/进化）、`RSI = Variation × Selection × Retention` 与展开式（Trace + RootCause + CandidateMutation + HeldOutEval + VersionedPromotion）、**EvolutionRate ≤ SelectionQuality**（选择比变异更稀缺）、C/E/M 三 Cell 模板、四面体（Knowledge×Skill×Tools×Verifier = Capability）、七方法论、字典文件生命周期（选择压力：能力库必须会忘）、17 个研究锚点、MCP=Capability Fabric 定位修正。
+2. **rsi-protocol.md → v5.0**：层1 增 E-Cell 采集（学习原子=带评价的执行轨迹）；层3 升级 M-Cell 流程（Parent/Diff/RootCause/Held-out/Regression/Cost/Rollback）；新增七方法论速查（最小充分修改/证据先于进化/验证先于优化/Skill First/快执行慢进化/选择压力/能力组合）。
+3. **self-evolving-pipeline.md → v5.0**：Fast Execution Slow Evolution 六档节奏表（秒→季，防 policy oscillation）；三 Cell 映射（CapabilityHub=references+tools / ExperienceHub=TRACE+记忆 / Evolution Engine=evolve+evals+verify）。
+4. **SKILL / EXECUTION-CORE / agent → v5.0** 注册（rsi-foundations 进 L5 索引）。
+5. **verify.ts** 版本单轨检查升级 v5.0。
+
+### 验证
+- `npm run verify --build` 全绿（禁词 0 / 副本×3 / 版本单轨 v5.0 / zip 禁词 0）；zip 475 KB / 2177 KB。
+- 本包最终形态：Evidence-Driven Capability Evolution——能力（C-Cell）/ 经验（E-Cell）/ 进化（M-Cell）三库闭环。

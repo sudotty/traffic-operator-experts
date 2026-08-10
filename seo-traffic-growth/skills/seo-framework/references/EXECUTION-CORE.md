@@ -2,7 +2,7 @@
 
 > 定位：**本专家包的唯一执行入口**。把全部方法论（现代军事战略法则 10 条 + 军事 35 概念 / 控制论 / 19 环 / 3 尖刀 / 输出规格 / 深度讲解 / RSI 自进化）收敛为 **1 张概念树 + 1 套 9 步流程 + 1 张代码映射表 + 1 套自进化闭环**。其他文件是字典（按需查），本文件是地图（照着走）。
 > 原则：**少而准**——每条规则 ≤1 行；概念只讲一次，细节进字典文件；冲突时本文件优先。
-> 版本：v4.0（2026-08-10 自适应自进化融合）
+> 版本：v5.0（2026-08-10 证据驱动能力进化融合）
 
 ---
 
@@ -22,7 +22,7 @@ L4 交付规格（给人看）：信号卡五字段 · 三层阅读 · 三层表
 L5 进化机制（越打越强）：AAR 复盘 → 经验 → 记忆 → SKILL → RELEASE → BETTER
 ```
 
-**对应文件**（字典，按需查）：L0=compliance ｜ L1=first-principles / benchmarks / research-library ｜ L2=military-core（现代军事战略法则 10 条 + 5 域方法论）｜ L3=system-lifecycle（19 环）+ deep-mapping / military-llm-playbook（理论映射）+ self-evolving-pipeline（自进化管道）｜ L4=output-spec + deep-dive（讲解）｜ L5=attribution-rhythm（AAR）+ account-profile-schema（记忆）+ evals（回归）+ rsi-protocol（RSI 递归自决策）。
+**对应文件**（字典，按需查）：L0=compliance ｜ L1=first-principles / benchmarks / research-library ｜ L2=military-core（现代军事战略法则 10 条 + 5 域方法论）｜ L3=system-lifecycle（19 环）+ deep-mapping / military-llm-playbook（理论映射）+ self-evolving-pipeline（自进化管道）｜ L4=output-spec + deep-dive（讲解）｜ L5=attribution-rhythm（AAR）+ account-profile-schema（记忆）+ evals（回归）+ rsi-protocol（RSI 递归自决策）+ rsi-foundations（RSI 第一性原理：六原子/C-E-M 三 Cell/七方法论）。
 
 ---
 
