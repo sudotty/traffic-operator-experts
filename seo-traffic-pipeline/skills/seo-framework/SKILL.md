@@ -28,7 +28,7 @@ description: SEO/GEO 流量增长的量化基准数据库与决策模型库。�
 | 工具 | `references/decision-models.md`（评分卡）`geo-monitoring.md`（自测）`live-data-protocol.md`（取数）`playbooks.md`（路由）`concept-hierarchy.md`（概念 5 层） | 决策/测量/取数工具 |
 | 附属 | `references/title-hook-library.md` / `trend-radar.md` / `style-anchors.md` | 网感标题/雷达/风格锚点（默认不启用） |
 
-## 铁律速查（8 条）
+## 铁律速查（9 条，与 EXECUTION-CORE.md ④ 同步；冲突时以 EXECUTION-CORE ④ 为准）
 
 1. 合规永远赢：`合规 > 真实 > 用户目标 > 网感风格`。
 2. 引用必带来源：数据=来源+年份+口径；库外标【待核实】；时效先检索。
