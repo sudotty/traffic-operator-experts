@@ -1,20 +1,29 @@
 /**
- * judge.ts — LLM-as-Judge 自动评估器（v5.0 Selection 机制落地，生产级）
+ * judge.ts — LLM-as-Judge 自动评估器（v5.1 Selection 机制落地，生产级）
  *
  * 双模型互评：产出模型（deepseek-v4-flash）生成回答 → 评审模型（deepseek-v4-pro）
  * 按 16 分 rubric 独立打分（judge 与产出不同模型，防自我表扬；judge 可 --judge 切换校准）。
+ *
+ * v5.1 升级（2026-08-10，业界对齐）：
+ *  - G1 触发召回测试：--set trigger（路由判断器判定是否应触发专家，召回率≥90%/准确率≥85% 通过线）
+ *  - G4 成本分层：--tier spot|targeted|full（先便宜后贵，防 eval 烧钱）
+ *  - G3 四维指标：--repeat N 稳定度（得分均值/方差）+ 风险维度（critical 数/空回复/解析失败）
  *
  * Usage:
  *   node dist/judge.js                       # 可见集评分（双模型互评）
  *   node dist/judge.js --set heldout         # held-out 集（防污染，RSEA 2026）
  *   node dist/judge.js --set adversarial     # 自博弈对抗集
+ *   node dist/judge.js --set trigger         # 触发召回测试（G1）
+ *   node dist/judge.js --tier spot          # 成本分层：只跑前 4 题（G4）
+ *   node dist/judge.js --tier targeted --filter T1,T3   # 定向补测失败题
+ *   node dist/judge.js --repeat 3            # 稳定度：每题跑 3 次输出均值/方差（G3）
  *   node dist/judge.js --dry-run             # 只输出计划与成本估算，不调用 API
  *   node dist/judge.js --json                # 结构化输出（供 CI/自动化）
  *   node dist/judge.js --budget 2.0          # 成本上限（USD），超限停止
  *   node dist/judge.js --judge flash         # 指定 judge 模型（校准用）
  *   node dist/judge.js --gen-adversarial     # 从失败 TRACE 生成对抗题（出题步骤，人确认后入 evals.md）
  *
- * 退出码：0 通过（≥13 且无 critical=0）｜1 未通过｜2 用法错｜3 配置缺失｜4 API 配额/网络失败｜5 部分失败
+ * 退出码：0 通过｜1 未通过｜2 用法错｜3 配置缺失｜4 API 配额/网络失败｜5 部分失败
  */
 import { readFileSync, existsSync, writeFileSync, mkdirSync, readdirSync } from "node:fs";
 import { homedir } from "node:os";
@@ -45,6 +54,7 @@ const PASS_LINE = 13;
 
 interface ModelCfg { id: string; name: string; vendor: string; url: string; apiKey: string; reasoning?: { defaultEffort?: string } }
 interface Question { id: string; text: string; note: string }
+interface TriggerQ { id: string; text: string; expect: boolean; note: string }
 interface Score { [key: string]: number }
 interface Result { question: Question; answer?: string; score?: Score; total?: number; criticalFail?: boolean; error?: string; tokens?: { in: number; out: number } }
 
@@ -92,6 +102,43 @@ function loadQuestions(set: string): Question[] {
   const adversarial = parseSection(content, "## 自博弈对抗题（v5.0", "A");
   const map: Record<string, Question[]> = { visible, heldout, adversarial };
   return map[set] ?? [];
+}
+
+/* ---------- 触发召回测试（G1，v5.1） ---------- */
+/** 从 evals.md「触发召回测试题」区块提取（期望触发：是/否） */
+function loadTriggerQuestions(): TriggerQ[] {
+  if (!existsSync(EVALS_PATH)) {
+    console.error("EVALS_MISSING: evals.md 不存在");
+    process.exit(3);
+  }
+  const content = readFileSync(EVALS_PATH, "utf8");
+  const idx = content.indexOf("## 触发召回测试题");
+  if (idx < 0) return [];
+  const rest = content.slice(idx + "## 触发召回测试题".length);
+  const end = rest.indexOf("\n## ");
+  const sec = end >= 0 ? rest.slice(0, end) : rest;
+  const qs: TriggerQ[] = [];
+  // T1. 「用户输入」（期望触发：是/否）（考察：…）
+  const re = /^\s*T(\d+)\.\s*「(.+?)」\s*（期望触发：([是否])）（考察：([^）]*)）/gm;
+  for (const m of sec.matchAll(re)) qs.push({ id: `T${m[1]}`, text: m[2], expect: m[3] === "是", note: m[4] });
+  return qs;
+}
+
+/** 路由判断器 system（模拟 Agent 的触发决策——SKILL name/description 是唯一依据） */
+const TRIGGER_SYSTEM = `你是技能路由判断器。判断下面这条用户输入是否应触发「流量操盘手（SEO/GEO 双轨获客操盘手）」专家。
+该专家触发描述：SEO/GEO 双轨流量增长操盘——选题评分、流量文写作、关键词方案、账号诊断、GEO 引用优化、网感雷达、数据归因。
+凡与上述能力相关的用户请求都应触发；不相关的（如编程、绘画、无关闲聊）不应触发。
+只输出 JSON：{"trigger": true|false, "reason": "<30字理由>"}。`;
+
+async function gradeTriggerOne(q: TriggerQ, producer: ModelCfg, dryRun: boolean): Promise<{ q: TriggerQ; trigger: boolean | null; error?: string; tokens?: { in: number; out: number } }> {
+  if (dryRun) return { q, trigger: null };
+  try {
+    const out = await callModel(producer, TRIGGER_SYSTEM, `用户输入：${q.text}`);
+    const parsed = extractJson(out.content);
+    return { q, trigger: parsed?.trigger === true ? true : parsed?.trigger === false ? false : null, error: parsed?.trigger === undefined ? "TRIGGER_JSON_PARSE_FAIL" : undefined, tokens: out.tokens };
+  } catch (e: any) {
+    return { q, trigger: null, error: e.message, tokens: { in: 0, out: 0 } };
+  }
 }
 
 /* ---------- DeepSeek API 调用（空回复自动重试 ×2） ---------- */
@@ -242,6 +289,65 @@ function readdirSafe(dir: string): string[] {
   try { return readdirSync(dir).filter((n) => n.endsWith(".md")); } catch { return []; }
 }
 
+/* ---------- 触发召回测试主流程（G1，v5.1） ---------- */
+async function runTrigger(producer: ModelCfg, dryRun: boolean, json: boolean, tier: string, filterIds: string[]): Promise<void> {
+  const qs0 = loadTriggerQuestions();
+  if (qs0.length === 0) {
+    console.log("EMPTY_SET: trigger 无测试题（检查 evals.md「触发召回测试题」区块）");
+    process.exit(0);
+  }
+  let qs = qs0;
+  if (filterIds.length > 0) qs = qs0.filter((q) => filterIds.includes(q.id));
+  if (tier === "spot") qs = qs.slice(0, 4); // 成本分层：先便宜后贵
+  console.log(`[judge.ts] 集合=trigger 题数=${qs.length} 模式=${dryRun ? "dry-run" : "路由判断器"} tier=${tier}`);
+
+  const results: { id: string; text: string; expect: boolean; trigger: boolean | null; match: boolean; error?: string }[] = [];
+  let tokensIn = 0, tokensOut = 0;
+  for (const q of qs) {
+    process.stdout.write(`  ${q.id} ${q.text.slice(0, 24)}... `);
+    const r = await gradeTriggerOne(q, producer, dryRun);
+    tokensIn += r.tokens?.in ?? 0;
+    tokensOut += r.tokens?.out ?? 0;
+    if (dryRun) { console.log("[待运行]"); continue; }
+    if (r.error) { console.log(`[${r.error}]`); results.push({ id: q.id, text: q.text, expect: q.expect, trigger: null, match: false, error: r.error }); continue; }
+    const match = r.trigger === q.expect;
+    results.push({ id: q.id, text: q.text, expect: q.expect, trigger: r.trigger, match });
+    console.log(`期望${q.expect ? "触发" : "不触发"} 判定${r.trigger ? "触发" : "不触发"} ${match ? "✅" : "❌"}`);
+  }
+
+  if (dryRun) {
+    console.log(`\n[dry-run] 将调用 ${qs.length} 次 API（路由判断），估算 token ≈ ${qs.length * 800} in`);
+    return;
+  }
+
+  const decided = results.filter((r) => r.trigger !== null);
+  const should = decided.filter((r) => r.expect);
+  const shouldNot = decided.filter((r) => !r.expect);
+  const tp = should.filter((r) => r.match).length;      // 应触发且触发
+  const fp = shouldNot.filter((r) => !r.match).length;  // 不应触发却触发（误报）
+  const recall = should.length > 0 ? tp / should.length : 1;   // 召回率 = 该触发的都触发了吗
+  const precision = decided.length > 0 ? decided.filter((r) => r.match).length / decided.length : 1; // 准确率 = 判定对了吗
+  const fpr = shouldNot.length > 0 ? fp / shouldNot.length : 0; // 误报率
+  const pass = recall >= 0.9 && precision >= 0.85;
+  const summary = {
+    version: "v5.1", date: new Date().toISOString().slice(0, 10), set: "trigger",
+    total: decided.length, recall: +(recall * 100).toFixed(1), precision: +(precision * 100).toFixed(1), fpr: +(fpr * 100).toFixed(1),
+    pass, tokens: { in: tokensIn, out: tokensOut },
+    details: results.map((r) => ({ id: r.id, expect: r.expect, trigger: r.trigger, match: r.match, error: r.error })),
+  };
+  mkdirSync(REPORT_DIR, { recursive: true });
+  const reportPath = join(REPORT_DIR, `eval-report-trigger-${Date.now()}.json`);
+  writeFileSync(reportPath, JSON.stringify(summary, null, 2));
+  if (json) console.log(JSON.stringify(summary, null, 2));
+  else {
+    console.log(`\n[汇总] 触发召回率 ${summary.recall}%（目标 ≥90%）｜准确率 ${summary.precision}%（目标 ≥85%）｜误报率 ${summary.fpr}%`);
+    console.log(`[token] in=${tokensIn} out=${tokensOut}`);
+    console.log(`[报告] ${reportPath}`);
+    console.log(pass ? "\n✅ TRIGGER PASS" : "\n❌ TRIGGER FAIL");
+  }
+  process.exit(pass ? 0 : 1);
+}
+
 /* ---------- 主流程 ---------- */
 async function main(): Promise<void> {
   const argv = process.argv.slice(2);
@@ -251,25 +357,39 @@ async function main(): Promise<void> {
   const budget = argv.includes("--budget") ? parseFloat(argv[argv.indexOf("--budget") + 1]) : Infinity;
   const judgeId = argv.includes("--judge") ? argv[argv.indexOf("--judge") + 1] : "deepseek-v4-pro";
   const only = argv.includes("--only") ? parseInt(argv[argv.indexOf("--only") + 1]) : 0;
-  if (!["visible", "heldout", "adversarial"].includes(set)) {
-    console.error("usage: --set visible|heldout|adversarial");
+  const tier = argv.includes("--tier") ? argv[argv.indexOf("--tier") + 1] : "full";
+  const repeat = argv.includes("--repeat") ? parseInt(argv[argv.indexOf("--repeat") + 1]) || 1 : 1;
+  const filterIds = argv.includes("--filter") ? argv[argv.indexOf("--filter") + 1].split(",") : [];
+  if (!["visible", "heldout", "adversarial", "trigger"].includes(set)) {
+    console.error("usage: --set visible|heldout|adversarial|trigger");
+    process.exit(2);
+  }
+  if (!["spot", "targeted", "full"].includes(tier)) {
+    console.error("usage: --tier spot|targeted|full");
     process.exit(2);
   }
 
+  const { producer, judge } = loadModels();
+
   if (argv.includes("--gen-adversarial")) {
-    const { producer } = loadModels();
     genAdversarial(producer, dryRun);
     return;
   }
 
-  const { producer, judge } = loadModels();
+  if (set === "trigger") {
+    await runTrigger(producer, dryRun, json, tier, filterIds);
+    return;
+  }
+
   const judgeCfg = judgeId === "deepseek-v4-flash" ? producer : judge;
-  const qs = loadQuestions(set);
+  let qs = loadQuestions(set);
+  if (filterIds.length > 0) qs = qs.filter((q) => filterIds.includes(q.id));
+  if (tier === "spot") qs = qs.slice(0, 4); // 成本分层（G4）：先便宜后贵
   if (qs.length === 0) {
     console.log(`EMPTY_SET: ${set} 无测试题（检查 evals.md 区块）`);
     process.exit(0);
   }
-  console.log(`[judge.ts] 集合=${set} 题数=${qs.length} 产出=${producer.id} judge=${judgeCfg.id} dry-run=${dryRun} budget=${budget}`);
+  console.log(`[judge.ts] 集合=${set} 题数=${qs.length} 产出=${producer.id} judge=${judgeCfg.id} dry-run=${dryRun} budget=${budget} tier=${tier} repeat=${repeat}`);
 
   const results: Result[] = [];
   let tokensIn = 0, tokensOut = 0;
@@ -278,15 +398,31 @@ async function main(): Promise<void> {
     if (only > 0 && q.id !== String(only)) continue;
     process.stdout.write(`  ${q.id} ${q.text.slice(0, 30)}... `);
     try {
-      const r = await gradeOne(q, producer, judgeCfg, dryRun, verbose);
-      results.push(r);
-      tokensIn += r.tokens?.in ?? 0;
-      tokensOut += r.tokens?.out ?? 0;
-      if (dryRun) console.log("[待运行]");
-      else if (r.error) console.log(`[${r.error}]`);
-      else console.log(`得分 ${r.total}/${RUBRIC.reduce((s, x) => s + x.max, 0)}${r.criticalFail ? " ⚠️CRITICAL" : ""}`);
+      // G3 稳定度：repeat>1 时每题跑 N 次，输出得分均值/方差
+      const runs: Result[] = [];
+      for (let n = 0; n < repeat; n++) {
+        const r = await gradeOne(q, producer, judgeCfg, dryRun, verbose);
+        runs.push(r);
+        tokensIn += r.tokens?.in ?? 0;
+        tokensOut += r.tokens?.out ?? 0;
+        if (r.error || dryRun) break; // 错误/空跑不重复
+      }
+      const scored = runs.filter((r) => r.score);
+      const r = scored[0] ?? runs[0];
+      if (dryRun) {
+        results.push(r);
+        console.log("[待运行]");
+      } else if (r.error) {
+        results.push(r);
+        console.log(`[${r.error}]`);
+      } else {
+        const totals = scored.map((x) => x.total ?? 0);
+        const mean = totals.reduce((s, x) => s + x, 0) / totals.length;
+        const std = totals.length > 1 ? Math.sqrt(totals.reduce((s, x) => s + (x - mean) ** 2, 0) / totals.length) : 0;
+        results.push({ ...r, total: +mean.toFixed(1) });
+        console.log(`得分 ${mean.toFixed(1)}/16${r.criticalFail ? " ⚠️CRITICAL" : ""}${repeat > 1 ? ` σ=${std.toFixed(1)}` : ""}`);
+      }
       if (!dryRun && !r.error && budget !== Infinity) {
-        // 粗估成本（价格未配置时为 0，仅 token 计数）
         const est = (tokensIn / 1e6) * 0 + (tokensOut / 1e6) * 0;
         if (est > budget) {
           console.log(`BUDGET_EXCEEDED: 估算成本 ${est.toFixed(4)} USD > ${budget}`);
@@ -305,19 +441,26 @@ async function main(): Promise<void> {
   }
 
   if (dryRun) {
-    console.log(`\n[dry-run] 将调用 ${qs.length * 2} 次 API（产出+评审各 ${qs.length} 次），估算 token ≈ ${qs.length * 2000} in / ${qs.length * 800} out`);
+    console.log(`\n[dry-run] 将调用 ${qs.length * 2 * repeat} 次 API（产出+评审各 ${qs.length * repeat} 次），估算 token ≈ ${qs.length * repeat * 2000} in / ${qs.length * repeat * 800} out`);
     return;
   }
 
-  // 汇总
+  // 汇总（四维：效果/稳定/成本/风险）
   const graded = results.filter((r) => r.score);
   const total = graded.reduce((s, r) => s + (r.total ?? 0), 0);
   const passed = graded.filter((r) => (r.total ?? 0) >= PASS_LINE && !r.criticalFail).length;
   const failed = results.filter((r) => r.error).length;
+  const risk = {
+    criticalFails: graded.filter((r) => r.criticalFail).length,
+    emptyResponses: results.filter((r) => (r.answer ?? "").includes("EMPTY_RESPONSE") || r.error === "JUDGE_JSON_PARSE_FAIL").length,
+    parseFails: results.filter((r) => r.error === "JUDGE_JSON_PARSE_FAIL").length,
+  };
   const summary = {
-    version: "v5.0", date: new Date().toISOString().slice(0, 10), set,
-    score: total, max: RUBRIC.reduce((s, r) => s + r.max, 0) * qs.length,
+    version: "v5.1", date: new Date().toISOString().slice(0, 10), set,
+    score: +total.toFixed(1), max: RUBRIC.reduce((s, r) => s + r.max, 0) * qs.length,
     pass: passed, fail: graded.length - passed, errors: failed,
+    stability: repeat > 1 ? { repeat, mean: +(total / Math.max(graded.length, 1)).toFixed(1) } : undefined,
+    risk, // G3 风险维度
     tokens: { in: tokensIn, out: tokensOut },
     details: results.map((r) => ({ id: r.question.id, total: r.total, criticalFail: r.criticalFail, error: r.error })),
   };
@@ -329,6 +472,7 @@ async function main(): Promise<void> {
     console.log(JSON.stringify(summary, null, 2));
   } else {
     console.log(`\n[汇总] 得分 ${summary.score}/${summary.max}｜通过 ${summary.pass}/${graded.length}｜错误 ${summary.errors}`);
+    console.log(`[四维] 效果=${summary.score}/${summary.max}｜稳定=${repeat > 1 ? `${summary.stability?.mean} σ` : "未测(--repeat N)"}｜成本=in ${tokensIn} out ${tokensOut}｜风险=critical ${risk.criticalFails} / 空回复 ${risk.emptyResponses}`);
     console.log(`[token] in=${tokensIn} out=${tokensOut}（成本：价格未配置，按官方价表换算）`);
     console.log(`[报告] ${reportPath}`);
     console.log(graded.length > 0 && passed === graded.length ? "\n✅ EVALS PASS" : "\n❌ EVALS FAIL");

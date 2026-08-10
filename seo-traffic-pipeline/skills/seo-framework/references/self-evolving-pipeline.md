@@ -1,10 +1,10 @@
-# 9 步执行流程 × LLM 自适应自进化管道（v5.0 架构设计）
+# 9 步执行流程 × LLM 自适应自进化管道（v5.1 架构设计）
 
 > 定位：把「9 步执行流程」（人驱动的 check-list）升级为 **LLM 驱动的自适应自进化管道**——每步有明确模型角色 + 自动化载体 + 自进化反馈环 + 自适应调整点。回答："能否把每一步用配置好的 LLM 最好自进化？"——**能，且 v5.0 起在部分环节自动执行**。
 > **定位声明（2026-08-10 审计后）**：本系统为 **harness 级 RSI**——进化发生在提示词/工具/工作流/记忆/评估层（Lilian Weng 2025：近中期 RSI 主战场是 Harness 工程），**不训练模型权重**；权重级进化不在本包范围。
 > 现状（2026-08-10）：模型 = `deepseek-v4-flash`（supportsToolCall ✅ / supportsReasoning ✅）；4 个自动化已跑在该模型上（雷达 08:00 / 预警 09:00 / 归因 周一 / 战略 每月 1 号）。
 > 理论母体：`rsi-foundations.md`（六原子 / VSV / C-E-M 三 Cell）；执行协议：`rsi-protocol.md`。
-> 版本：v5.0（2026-08-10 证据驱动能力进化升级）
+> 版本：v5.1（2026-08-10 证据驱动能力进化升级）
 
 ---
 
@@ -55,7 +55,7 @@
 
 ---
 
-## 四、自适应机制（v5.0 五环自适应 + 进化提议自动化）
+## 四、自适应机制（v5.1 五环自适应 + 进化提议自动化）
 
 自适应 = 不等人工变更，系统随环境反馈自动微调；与自进化（三环）正交叠加：
 
@@ -71,7 +71,7 @@
 
 ---
 
-## 五、Fast Execution, Slow Evolution 节奏（v5.0 方法论 5 落地）
+## 五、Fast Execution, Slow Evolution 节奏（v5.1 方法论 5 落地）
 
 | 频率 | 动作 | 载体 | 纪律 |
 |---|---|---|---|
@@ -86,7 +86,7 @@
 
 ---
 
-## 六、三 Cell 映射（v5.0：Capability/Experience/Evolution 三分）
+## 六、三 Cell 映射（v5.1：Capability/Experience/Evolution 三分）
 
 | 理论 Cell | 本包落地 | 说明 |
 |---|---|---|
@@ -138,3 +138,20 @@
 | evals.md | 环3 回归门禁（总分 ≥8 且无 critical=0） |
 
 > 维护说明：本文件是"工程落地层"——9 步 × LLM 角色 × 自动化载体 × 三环自进化，是自进化能力的产品化设计。落地优先级 P0→P1→P2。
+
+## 九、业界对齐机制（v5.1：2026-08-10 调研对齐）
+
+> 依据：Anthropic 官方四条 / OpenAI Eval 方法论 / 自进化可控路线 / SemVer 工程指南（详见仓库根 `CHANGELOG.md` 与调研报告 `agent-skill-upgrade-playbook-2026-08.md`）。
+
+| 机制 | 落地位置 | 触发节奏 |
+|---|---|---|
+| **G1 触发召回测试**（description 是触发唯一依据） | `judge.ts --set trigger`（T1-T8，通过线 召回≥90%/准确≥85%） | 修改 description/定位后必须跑 |
+| **G4 成本分层**（先便宜后贵） | `judge.ts --tier spot`（编辑后首检 4 题）→ targeted（补测失败题）→ full（发布前） | 每次编辑 |
+| **G3 四维指标**（效果/稳定/成本/风险） | `judge.ts --repeat N`（稳定度方差）+ 报告 risk 维度 | 发布前 full+repeat |
+| **G2 文件级版本纪律**（SemVer + CHANGELOG） | 仓库根 `CHANGELOG.md`（六类规范）+ verify [3.5/6] 契约检查 | 每次发布 |
+| **G5 description A/B**（单变量召回对照） | 改 description 前用 trigger 集对 A/B 两版各跑一次，召回更优者胜出 | description 重大修改时 |
+| **G6 Compaction SOP**（压缩重构防膨胀） | 月度复盘：合并重复规则 → 下沉细节到 references → 删除长期未触发 → 历史任务验证 vN vs vN+1 | 月度 |
+| **G7 生产反馈回流**（生产→结构化信号） | 真实写稿/归因产出（成功+失败）进 ExperienceHub；失败模式供 `--gen-adversarial` 出题 | 持续 |
+| **G8 运行时监控**（触发率/误触发/token） | 4 个自动化运行指标（触发、token、失败模式）采集入 TRACE，月度复盘分析 | 持续 |
+
+> 原则（业界共识）：**先评估后升级、最小可验证步进（one hypothesis per edit）、触发质量优先、四维衡量、人闸门在发布边界**。

@@ -60,7 +60,7 @@ function listFiles(root: string, out: string[] = [], base = root, skipDirs = SKI
 
 /* ---------- 1. 禁词检查 ---------- */
 function checkForbidden(): void {
-  console.log("[1/5] 禁词检查（源仓库 + 已安装副本）");
+  console.log("[1/6] 禁词检查（源仓库 + 已安装副本）");
   const roots = [REPO, INST_GROWTH, INST_PIPELINE];
   let hits = 0;
   for (const root of roots) {
@@ -112,7 +112,7 @@ function compareDir(a: string, b: string, label: string): void {
 }
 
 function checkSync(): void {
-  console.log("[2/5] 副本同步（growth == pipeline == 已安装 ×2）");
+  console.log("[2/6] 副本同步（growth == pipeline == 已安装 ×2）");
   compareDir(GROWTH, PIPELINE, "growth vs pipeline");
   compareDir(GROWTH, INST_GROWTH, "growth vs 已安装 growth");
   compareDir(GROWTH, INST_PIPELINE, "growth vs 已安装 pipeline");
@@ -120,24 +120,44 @@ function checkSync(): void {
 
 /* ---------- 3. 版本单轨 ---------- */
 function checkVersion(): void {
-  console.log("[3/3] 版本单轨（references 版本行必须 v5.0）");
+  console.log("[3/6] 版本单轨（references 版本行必须 v5.1）");
   const refs = join(GROWTH, "skills/seo-framework/references");
   let bad = 0;
   for (const f of readdirSync(refs).filter((n) => n.endsWith(".md"))) {
     for (const line of readFileSync(join(refs, f), "utf8").split("\n")) {
       const m = /^>\s*版本[：:]\s*(.+)$/.exec(line);
-      if (m && !m[1].includes("v5.0")) {
+      if (m && !m[1].includes("v5.1")) {
         fail(`${f}: ${m[1].trim()}`);
         bad++;
       }
     }
   }
-  bad === 0 ? pass("全部引用文件版本行 = v5.0（修订史在 git）") : fail(`${bad} 个文件版本行非 v5.0`);
+  bad === 0 ? pass("全部引用文件版本行 = v5.1（修订史在 git）") : fail(`${bad} 个文件版本行非 v5.1`);
+}
+
+/* ---------- 3.5 CHANGELOG 契约（G2，v5.1） ---------- */
+function checkChangelog(): void {
+  console.log("[3.5/6] CHANGELOG 契约（Keep a Changelog：最新条目版本 = 体系版本）");
+  const changelogPath = join(REPO, "CHANGELOG.md");
+  if (!existsSync(changelogPath)) {
+    fail("CHANGELOG.md 不存在——按 G2 规范必须维护（Keep a Changelog 六类）");
+    return;
+  }
+  const content = readFileSync(changelogPath, "utf8");
+  const m = /^## \[(v[\d.]+)\]/m.exec(content); // m 标志：匹配任意行首
+  if (!m) {
+    fail("CHANGELOG.md 无版本条目（应为 `## [vX.Y] - 日期` 开头）");
+    return;
+  }
+  m[1].startsWith("v5.") ? pass(`CHANGELOG 最新条目 ${m[1]} 覆盖当前体系`) : fail(`CHANGELOG 最新条目 ${m[1]} 未覆盖 v5.1`);
+  const categories = ["Added", "Changed", "Deprecated", "Removed", "Fixed", "Security"];
+  const missing = categories.filter((c) => !content.includes(`### ${c}`));
+  missing.length === 0 ? pass("六类分区齐全") : fail(`CHANGELOG 缺分区: ${missing.join("、")}`);
 }
 
 /* ---------- 4. 契约测试（索引 ↔ 文件双向一致，替代人工 T1） ---------- */
 function checkContract(): void {
-  console.log("[4/5] 契约测试（索引 ↔ 文件双向一致）");
+  console.log("[4/6] 契约测试（索引 ↔ 文件双向一致）");
   const skillDir = join(GROWTH, "skills/seo-framework");
   const refsDir = join(skillDir, "references");
   const disk = new Set(readdirSync(refsDir).filter((n) => n.endsWith(".md")));
@@ -172,7 +192,7 @@ function checkContract(): void {
 
 /* ---------- 5. 字典生命周期（使用率检查，选择压力落地） ---------- */
 function checkLifecycle(): void {
-  console.log("[5/5] 字典生命周期（非索引引用 <2 次 → LOW-USE 提示）");
+  console.log("[5/6] 字典生命周期（非索引引用 <2 次 → LOW-USE 提示）");
   const refsDir = join(GROWTH, "skills/seo-framework/references");
   const files = readdirSync(refsDir).filter((n) => n.endsWith(".md") && n !== "EXECUTION-CORE.md");
   const low: string[] = [];
@@ -213,11 +233,11 @@ function checkReleaseGate(): void {
   const latest = records[records.length - 1]; // 最新记录在表尾（追加式）
   if (!latest.startsWith("v5.")) {
     fail(
-      `evals 最新记录为 ${latest}，未覆盖当前体系 v5.0——` +
-        `按 v5.0 协议需完成 judge 评估后 RELEASE（历史断档按用户决策不补跑，需人工确认放行）`,
+      `evals 最新记录为 ${latest}，未覆盖当前体系 v5.1——` +
+        `按 v5.1 协议需完成 judge 评估后 RELEASE（历史断档按用户决策不补跑，需人工确认放行）`,
     );
   } else {
-    pass(`evals 记录已覆盖 v5.0（最新：${latest}）`);
+    pass(`evals 记录已覆盖 v5.1（最新：${latest}）`);
   }
 }
 
@@ -247,6 +267,7 @@ const release = process.argv.includes("--release");
 checkForbidden();
 checkSync();
 checkVersion();
+checkChangelog();
 checkContract();
 checkLifecycle();
 if (release) checkReleaseGate();
