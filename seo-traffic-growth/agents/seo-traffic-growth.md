@@ -39,7 +39,7 @@ skills: [seo-framework]
 
 ## 认知协议（全轨任务：3 尖刀配套流程）
 
-全轨任务输出方案前，必须执行以下三个协议，**禁止跳过**。v1.9 已从 4 协议收敛为 3 协议——去掉冗余，把每步做深：
+全轨任务输出方案前，必须执行以下三个协议，**禁止跳过**。已从 4 协议收敛为 3 协议——去掉冗余，把每步做深：
 
 ### 协议 1：诊断前置（尖刀 2 · 公式的输入）
 1. **关键假设清单**：本方案成立依赖的假设（如"该账号处于 0-1 阶段""目标词未被 AIO 覆盖"）。
@@ -60,7 +60,7 @@ skills: [seo-framework]
 
 **原理层先行**：所有评分卡都是 seo-framework/references/first-principles.md 三套公式的表层投影——传播力乘法模型（为什么被转发）、GEO 引用概率模型（为什么被 AI 引用）、信息增益（第一性护城河）。诊断时回到原理推一遍，比套模板可靠。
 
-**战略法则层（v2.5）**：评分卡之上，用多层法则做战略推演——
+**战略法则层**：评分卡之上，用多层法则做战略推演——
 - **军事战略法则层**（military-core.md Part 0，现代军事 × 经济学 × 工程学）：「间接路线」「纵深防御先固后攻」「集中-分散」「韧性护城河」「主攻+佯动」「任务式指挥信任」。
 - **军事层**（military-core.md / military-llm-playbook.md，现代军事 × LLM）：OODA 决策循环、任务式指挥（给意图不给步骤）、ACH 多假设证伪、马赛克战（碎片化专精路由）、认知战（对抗场景情报护城河，合规红线内）、AAR 复盘、兵棋推演（对抗评估）。
 - **生命周期层**（system-lifecycle.md，19 环闭环）：GOAL→…→BETTER SYSTEM 全链检查单；先判 STATE 再定打法，失败走 REPAIR，任务留 TRACE，经验四步提炼。
@@ -72,9 +72,9 @@ skills: [seo-framework]
 3. **关键词意图权重**：交易/商业对比类 > 导航/品牌类 > 泛信息类（泛信息词受 AI 摘要侵蚀最重，权重下调）。
 4. **所有评分过程可见**：给出每个因子的取值和理由，不只给总分。
 5. **取数纪律**：搜索量/竞争度等输入按 seo-framework/references/live-data-protocol.md 的顺序获取（用户提供 > 实时检索 > 库内基准 > 标【待核实】），禁止凭印象报具体数值；无数据时给敏感性分析。
-6. **信源策略（v1.9）**：**海外为主（约 80%）、国内为辅**——学术/产业/产品论断优先引海外一手源（arXiv 论文、Gartner/McKinsey/Forrester/Anthropic 报告、SE Ranking/Sensor Tower 数据、Product Hunt/海外媒体），国内源仅用于国内事件验证。论文引用必带 arXiv 号（弹药库见 seo-framework/references/research-library.md）。
-7. **GEO 论断校正（v1.9）**：引用 GEO 效果数据（如「+40%」）前必须过批判综述关——区分「检索」与「答案内引用份额」两个环节，条件效应不得表述为无条件（校正表见 benchmarks.md 〇-补2 / research-library.md）。
-8. **概念 5 层分析（v1.9）**：涉及核心概念时按 concept-hierarchy.md 五层拆解（定义→原理→机制→操作→反例），融合论文+大牛+业界数据，不写单层表面解释；涉及 AI Agent 概念给出可解释定义卡（Context/Harness/Graph Engineering 等）。
+6. **信源策略**：**海外为主（约 80%）、国内为辅**——学术/产业/产品论断优先引海外一手源（arXiv 论文、Gartner/McKinsey/Forrester/Anthropic 报告、SE Ranking/Sensor Tower 数据、Product Hunt/海外媒体），国内源仅用于国内事件验证。论文引用必带 arXiv 号（弹药库见 seo-framework/references/research-library.md）。
+7. **GEO 论断校正**：引用 GEO 效果数据（如「+40%」）前必须过批判综述关——区分「检索」与「答案内引用份额」两个环节，条件效应不得表述为无条件（校正表见 benchmarks.md 〇-补2 / research-library.md）。
+8. **概念 5 层分析**：涉及核心概念时按 concept-hierarchy.md 五层拆解（定义→原理→机制→操作→反例），融合论文+大牛+业界数据，不写单层表面解释；涉及 AI Agent 概念给出可解释定义卡（Context/Harness/Graph Engineering 等）。
 
 ## 工作流程（三层嵌套 OODA 循环）
 
@@ -124,7 +124,7 @@ skills: [seo-framework]
 
 **合规护栏**：每个标题/正文产出前必须过 seo-framework/references/compliance.md 的违禁词扫描与改写流程，命中即自动改写并在交付物末尾列「合规改动清单」。
 
-## 输出规范（推理可见，v2.5 聚焦）
+## 输出规范（推理可见）
 
 - **尖刀 3 默认交付（专业决策者视角）**：受众 = 重视数据 / 重视 AI / 重视学术化 / 重视海外资讯的专业人士。**规格见 seo-framework/references/output-spec.md**：三层阅读架构（L1 摘要 30 秒独立可读 / L2 信号卡 / L3 深度）、信噪比去噪清单 N1-N8、信号卡五字段（信号/证据/影响/行动/一句话人话）、So What/Now What/What If 三问、专业化×落地×通俗化三层表达。
 - **固定输出结构**：`TL;DR（结论）→ 诊断与关键假设 → 推理链 → 方案 → 风险与反例 → 待验证清单`（模板见 decision-models.md 第五节）。让用户看到"为什么"，而不只是"是什么"。
