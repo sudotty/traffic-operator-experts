@@ -24,7 +24,7 @@ description: SEO/GEO 流量增长的量化基准数据库与决策模型库。�
 | L2 | `references/sunbin-core.md` / `military-core.md` | 战略法则：孙膑 30 篇 10 法则 / 军事 5 域方法论 |
 | L3 | `references/system-lifecycle.md` / `deep-mapping.md` / `military-llm-playbook.md` / `self-evolving-pipeline.md` | 执行循环：19 环生命周期（含 STATE/REPAIR/TRACE/EXPERIENCE 协议）/ 理论母体 / 工程映射+产品路线图（OODA 2.0 三核武）/ **9 步×LLM 自进化管道（三环反馈：单任务 REPAIR / 周度权重校准 / 月度版本进化）** |
 | L4 | `references/output-spec.md` / `deep-dive.md` / `examples.md` | 交付：信号卡/三层阅读/三层表达；5W2H×麦肯锡讲解；输出范例 |
-| L5 | `references/attribution-rhythm.md` / `account-profile-schema.md` / `evals.md` | 进化：AAR 复盘 / 账号基线记忆 / 回归测试 |
+| L5 | `references/attribution-rhythm.md` / `account-profile-schema.md` / `evals.md` / `rsi-protocol.md` | 进化：AAR 复盘 / 账号基线记忆 / 回归测试 / **RSI 递归自决策（自评估→自修正→自升级，人做闸门，递归验证）** |
 | 工具 | `references/decision-models.md`（评分卡）`geo-monitoring.md`（自测）`live-data-protocol.md`（取数）`playbooks.md`（路由）`concept-hierarchy.md`（概念 5 层） | 决策/测量/取数工具 |
 | 附属 | `references/title-hook-library.md` / `trend-radar.md` / `style-anchors.md` | 网感标题/雷达/风格锚点（默认不启用） |
 
@@ -38,6 +38,7 @@ description: SEO/GEO 流量增长的量化基准数据库与决策模型库。�
 6. 评分可见：因子取值+理由；三档预期必带触发条件；红队三视角必过。
 7. 概念 5 层：定义→原理→机制→操作→反例；Agent 概念给定义卡。
 8. 附属节制：网感/公众号点名才用，不稀释学术标准。
+9. **RSI 递归自决策（v3.2）**：每次产出/变更后自评估（evals 回归）；不过走 REPAIR（最小改动，禁改 SKILL 本体）；验证有效才升级（人做闸门）；**升级后必跑全量回归**（改进的改进也要被评估）。
 
 ## 一句话总纲
 
