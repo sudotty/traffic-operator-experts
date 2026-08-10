@@ -410,3 +410,37 @@
 - 海外信源占比约 80%：Gartner / Forrester / Anthropic / SE Ranking / Sensor Tower / arXiv / Product Hunt / dev.to；国内源仅验证国内事件（《财经》8/5）。
 - 全部【事实】带来源+年份+口径；厂商自报数据（Anthropic 遥测、AnySearch 基准）已标注厂商口径。
 - 【待核实】公众号三件套（REDFOX_API_KEY 未配置）未并入；E 表选题分为默认权重估算，待账号基线回填校准。
+
+## 2026-08-10 概念体系 v2（5 层等级分析 · 融合调研）
+
+> 全量内容沉淀于 skill `seo-framework/references/concept-hierarchy.md`（v1.8）。此处为 wiki 归档摘要。
+
+### 概念全景（5 层：原理/机制/操作/边界）
+- **原理层**：传播力乘法模型、GEO 引用概率 P(检索)×P(选中)×P(归因)、信息增益护城河
+- **机制层**：零点击经济（68%）、Agent 工程四范式、Context Engineering、Agentic Engineering
+- **操作层**：三层阅读架构、信号卡五字段、Share of Visibility 度量、三层表达
+- **边界层**：GEO 批判综述校正（+40% 条件效应）、红队三视角
+
+### 2026 关键数据锚点（调研新增）
+| 数据 | 数值 | 来源 |
+|---|---|---|
+| 零点击搜索 | 68.01%（2024 为 60.45%，+7.56pt） | SparkToro/Similarweb，Fishkin 2026.6 |
+| AI 引荐转化 | 流量 +400% YoY；到站转化比非 AI 高 ~42% | Adobe Digital Insights 2026.4 |
+| AI 搜索收入 | 2028 年 $750B 流经 AI 搜索 | McKinsey 2025.8（N=1,927） |
+| AI 排名可靠性 | 品牌列表一致率 <1%（2,961 次运行） | Fishkin & O'Donnell 2026 |
+| Agent 生产渗透 | 57.3% 组织已生产；32% 称质量为最大障碍 | LangChain 2026.6（N=1,340） |
+| Agent ROI | 41% 12 月内回本；中位 5.1 月；19% 永不回本 | Gartner Agentic AI Pulse 2026 |
+
+### 概念融合打法（5 条主线）
+1. 检索是前提，结构是安全网（GEO 三环 × SAGEO Arena）
+2. 引用份额是目标，出现率是度量（零点击 × Share of Visibility）
+3. 修复优先于重写，增益优先于完整（Tian × 信息增益）
+4. 语境即一切（Context Engineering × Agentic Engineering）
+5. 三层表达 × 信号卡 = 决策损耗最低（output-spec v2）
+
+### 大牛锚点（可引用）
+- Fishkin：「点击已可选，不可选的是成为机器信任的信源」（2026.6）
+- Karpathy：Context Engineering = 把正确信息填进上下文窗口的艺术（2025.6.25）；Agentic Engineering（2026.2）
+- Simon Willison：「新代码近乎免费，好代码依然很贵」（2026）
+- Anthropic：context engineering 官方定义 = 推理期 token 最优策展（2025.9）
+- Martinez：「GEO ROI 的市场宣称远超学术证据」（arXiv:2607.14035）
