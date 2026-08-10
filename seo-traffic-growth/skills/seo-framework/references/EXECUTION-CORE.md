@@ -1,6 +1,6 @@
 # EXECUTION-CORE（单一真源 · 方法论 × 代码最终融合）
 
-> 定位：**本专家包的唯一执行入口**。把全部方法论（孙膑 30 篇 / 军事 35 概念 / 控制论 / 19 环 / 3 尖刀 / 输出规格 / 深度讲解 / RSI 自进化）收敛为 **1 张概念树 + 1 套 9 步流程 + 1 张代码映射表 + 1 套自进化闭环**。其他文件是字典（按需查），本文件是地图（照着走）。
+> 定位：**本专家包的唯一执行入口**。把全部方法论（现代军事战略法则 10 条 + 军事 35 概念 / 控制论 / 19 环 / 3 尖刀 / 输出规格 / 深度讲解 / RSI 自进化）收敛为 **1 张概念树 + 1 套 9 步流程 + 1 张代码映射表 + 1 套自进化闭环**。其他文件是字典（按需查），本文件是地图（照着走）。
 > 原则：**少而准**——每条规则 ≤1 行；概念只讲一次，细节进字典文件；冲突时本文件优先。
 > 版本：v3.2（2026-08-10 最终融合）
 
@@ -13,7 +13,7 @@ L0 根基：合规 > 真实 > 用户目标 > 网感风格（永远优先）
 │
 L1 原理（为什么）：传播力乘法 × GEO 概率(检索·选中·归因) × 信息增益
 │
-L2 战略法则（打什么仗）：攻虚不攻坚 · 先固垒再出击 · 我专敌分 · 护城河=持续挖沟 · 正奇相生
+L2 战略法则（打什么仗）：间接路线 · 纵深防御先固后攻 · 集中-分散 · 韧性护城河 · 主攻+佯动
 │
 L3 执行循环（怎么打）：OODA（Observe→Orient→Decide→Act）——Orient=上下文工程，是重心
 │
@@ -22,7 +22,7 @@ L4 交付规格（给人看）：信号卡五字段 · 三层阅读 · 三层表
 L5 进化机制（越打越强）：AAR 复盘 → 经验 → 记忆 → SKILL → RELEASE → BETTER
 ```
 
-**对应文件**（字典，按需查）：L0=compliance ｜ L1=first-principles / benchmarks / research-library ｜ L2=sunbin-core（兵法）+ military-core（军事）｜ L3=system-lifecycle（19 环）+ deep-mapping / military-llm-playbook（理论映射）+ self-evolving-pipeline（自进化管道）｜ L4=output-spec + deep-dive（讲解）｜ L5=attribution-rhythm（AAR）+ account-profile-schema（记忆）+ evals（回归）+ rsi-protocol（RSI 递归自决策）。
+**对应文件**（字典，按需查）：L0=compliance ｜ L1=first-principles / benchmarks / research-library ｜ L2=military-core（现代军事战略法则 10 条 + 5 域方法论）｜ L3=system-lifecycle（19 环）+ deep-mapping / military-llm-playbook（理论映射）+ self-evolving-pipeline（自进化管道）｜ L4=output-spec + deep-dive（讲解）｜ L5=attribution-rhythm（AAR）+ account-profile-schema（记忆）+ evals（回归）+ rsi-protocol（RSI 递归自决策）。
 
 ---
 
@@ -33,7 +33,7 @@ L5 进化机制（越打越强）：AAR 复盘 → 经验 → 记忆 → SKILL �
 | 1 | **定目标**：北极星（引用率>品牌词>转化>打开率） | system-lifecycle GOAL | 量化目标 |
 | 2 | **判状态**：账号五态（冷启动/验证/成长/稳定/衰退） | system-lifecycle STATE | 状态标签 |
 | 3 | **看情报**：PIR 3-5 条 + 海外信源 80%（多源交叉） | live-data-protocol | 情报清单 |
-| 4 | **选战场**：选题评分卡（竞争度=雄牝城，攻虚不攻坚） | decision-models + sunbin-core | 选题+评分 |
+| 4 | **选战场**：选题评分卡（竞争度=强点/弱点，间接路线） | decision-models + military-core | 选题+评分 |
 | 5 | **定打法**：三档预期 + 二阶风险（"哪环先死"） | decision-models | 预期表 |
 | 6 | **执行**：产线 8 环（定位→挖词→内容簇→钩子→成文→校验→分发→回流） | agent 8 环 | 内容+发布 |
 | 7 | **验证**：红队三视角 + GEO 三环自测（多引擎 7-8 次） | geo-monitoring + decision-models | 验证报告 |
@@ -49,7 +49,7 @@ L5 进化机制（越打越强）：AAR 复盘 → 经验 → 记忆 → SKILL �
 | 方法论层 | 落地形态（代码/产线/自动化） | 说明 |
 |---|---|---|
 | L1 原理 | `seo-framework` skill（评分卡代码化） | 公式即代码，输入=数据，输出=分数 |
-| L2 战略 | `sunbin-core.md` / `military-core.md` 决策模板 | 法则=决策树的 if-else |
+| L2 战略 | `military-core.md` 决策模板 | 法则=决策树的 if-else |
 | L3 循环 | **OODA 2.0 Agent 架构**（military-llm-playbook） | 三核武：Mosaic-Router 路由 / Cognitive Shield 认知盾 / ACH-Debugger 多假设调试 |
 | L3 循环 | **产线 pipeline**（5 角色） | team-lead=任务式指挥（意图+边界）；writer=执行；gatekeeper=验证；data-analyst=情报；keyword-strategist=选战场 |
 | L4 交付 | `output-spec.md` 输出骨架 | 信号卡=模板，N1-N8=lint 检查 |
@@ -89,14 +89,14 @@ RSI 递归：自评估（evals）→ 自修正（REPAIR，禁改本体）→ 自
 ## ⑤ 三把尖刀（能力定位，一句话各）
 
 1. **学术级 GEO/AI 深度**：可溯源、可校正、可复算——行业 99% 从业者不具备。
-2. **可复算决策**：公式代替手感 + 兵法/军事战略法则层（评分卡答"哪个词"，法则答"打不打/怎么打"）。
+2. **可复算决策**：公式代替手感 + 军事战略法则层（评分卡答"哪个词"，法则答"打不打/怎么打"）。
 3. **专业交付**：决策损耗最低——信号卡 + 三层阅读 + 三层表达（专业×落地×通俗）。
 
 ---
 
 ## ⑥ 一句话总纲（整个体系的压缩表达）
 
-> **零点击时代（68%），内容获客 = 让 AI 引用你**：先看清（情报）→ 打对仗（攻虚）→ 快循环（OODA，Orient=上下文）→ 讲清楚（信号卡）→ 每战复盘（AAR）→ 复盘进技能（进化）。方法论都是弹药，这套 9 步流程是枪。
+> **零点击时代（68%），内容获客 = 让 AI 引用你**：先看清（情报）→ 打对仗（间接路线）→ 快循环（OODA，Orient=上下文）→ 讲清楚（信号卡）→ 每战复盘（AAR）→ 复盘进技能（进化）。方法论都是弹药，这套 9 步流程是枪。
 
 ---
 

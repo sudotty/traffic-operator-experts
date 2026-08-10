@@ -6,7 +6,7 @@ description: SEO/GEO 流量增长的量化基准数据库与决策模型库。�
 # SEO 量化框架与基准库
 
 > **定位（v3.2 收敛版）**：唯一入口 = `references/EXECUTION-CORE.md`（概念树 + 9 步流程 + 代码映射 + 自进化闭环 + 铁律速查）。本 SKILL 只保留入口与速查，细节全部进字典文件（按需查，概念只讲一次）。
-> **能力**：3 把尖刀——①学术级 GEO/AI 深度（可溯源可校正可复算）②可复算决策（公式代替手感 + 兵法/军事战略法则层）③专业决策者交付（决策损耗最低）。附属工具（网感标题/公众号）默认不启用。
+> **能力**：3 把尖刀——①学术级 GEO/AI 深度（可溯源可校正可复算）②可复算决策（公式代替手感 + 军事战略法则层）③专业决策者交付（决策损耗最低）。附属工具（网感标题/公众号）默认不启用。
 > **原则**：优点做到极致强，不追求均衡；合规 > 真实 > 用户目标 > 网感风格。
 
 ## 使用方式（先看 EXECUTION-CORE，再按需查字典）
@@ -21,7 +21,7 @@ description: SEO/GEO 流量增长的量化基准数据库与决策模型库。�
 |---|---|---|
 | L0 | `references/compliance.md` | 合规护栏（永远启用） |
 | L1 | `references/first-principles.md` / `benchmarks.md` / `research-library.md` | 原理三件套：传播力乘法 × GEO 三环 × 信息增益；数据基准；学术弹药库 |
-| L2 | `references/sunbin-core.md` / `military-core.md` | 战略法则：孙膑 30 篇 10 法则 / 军事 5 域方法论 |
+| L2 | `references/military-core.md` | 战略法则：现代军事 10 法则 + 5 域方法论 |
 | L3 | `references/system-lifecycle.md` / `deep-mapping.md` / `military-llm-playbook.md` / `self-evolving-pipeline.md` | 执行循环：19 环生命周期（含 STATE/REPAIR/TRACE/EXPERIENCE 协议）/ 理论母体 / 工程映射+产品路线图（OODA 2.0 三核武）/ **9 步×LLM 自进化管道（三环反馈：单任务 REPAIR / 周度权重校准 / 月度版本进化）** |
 | L4 | `references/output-spec.md` / `deep-dive.md` / `examples.md` | 交付：信号卡/三层阅读/三层表达；5W2H×麦肯锡讲解；输出范例 |
 | L5 | `references/attribution-rhythm.md` / `account-profile-schema.md` / `evals.md` / `rsi-protocol.md` | 进化：AAR 复盘 / 账号基线记忆 / 回归测试 / **RSI 递归自决策（自评估→自修正→自升级，人做闸门，递归验证）** |

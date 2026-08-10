@@ -14,8 +14,8 @@
 | 1 | **GOAL** 目标 | 要什么结果 | 协议 1 目标界定 / 北极星对齐 | ✅ 强 |
 | 2 | **CONTEXT** 上下文 | 在什么条件下 | 协议 1 假设清单 / playbooks 业务坐标 | ✅ 强 |
 | 3 | **STATE** 状态 | 现在处于哪 | **新增：账号状态机**（§3） | ⚠️ 弱→补齐 |
-| 4 | **MODEL** 模型 | 用什么心智模型判断 | decision-models / concept-hierarchy / sunbin-core | ✅ 强 |
-| 5 | **DECISION** 决策 | 做什么选择 | 评分卡 / 三档预期 / 兵法推演 | ✅ 强 |
+| 4 | **MODEL** 模型 | 用什么心智模型判断 | decision-models / concept-hierarchy / military-core | ✅ 强 |
+| 5 | **DECISION** 决策 | 做什么选择 | 评分卡 / 三档预期 / 军事战略推演 | ✅ 强 |
 | 6 | **ACTION** 行动 | 具体做什么 | 产线 8 环 Act / 输出规范 | ✅ 强 |
 | 7 | **WORLD** 世界 | 现实如何反馈 | 发布 / 数据回流 / 竞品反应 | ✅ 强 |
 | 8 | **EVIDENCE** 证据 | 拿到了什么数据 | geo-monitoring / Share of Visibility / 活数据协议 | ✅ 强 |
@@ -51,35 +51,35 @@
 
 ### 环 3 STATE · 状态（新增协议）
 - **What**：当前系统处于什么状态（账号生命周期阶段 × 资源余量 × 战场态势）。
-- **Why**：兵法"因势利导"——不判状态就决策=蒙眼开车；孙膑先判主客（客主人分）再定打法。
+- **Why**：军事"态势理解（Sensemaking/IPB）"——不判状态就决策=蒙眼开车；先做 IPB 环境评估再定打法。
 - **When**：每次任务开始时 + 每周归因时更新。
 - **Where**：账号基线 schema 扩展。
 - **Who**：操盘手。
-- **How**：**账号状态机**——五态：`0-1 冷启动 → 验证期（找重复模式）→ 成长期（放大验证模式）→ 稳定期（守品牌+攻增量）→ 衰退/转型期（积疏监测触发）`。
+- **How**：**账号状态机**——五态：`0-1 冷启动 → 验证期（找重复模式）→ 成长期（放大验证模式）→ 稳定期（守品牌+攻增量）→ 衰退/转型期（韧性监测触发）`。
 - **How much**：状态判定标准——冷启动（无数据/<10 篇）、验证期（10-30 篇有 1-2 个重复模式）、成长期（模式验证+引用率上升 2 个月）、稳定期（引用率平台）、衰退（引用率/流量连降 2 月）。
 - **麦肯锡**：MECE——五态互斥；So What：状态决定打法（冷启动=蓄势/验证期=聚焦实验/稳定期=正奇相生）。
 - **比喻**：游戏存档——不知道存档在哪（状态），就无法决定下一步往哪走。
 - **新增字段**：account-profile-schema.md 增加 `state` 字段（五态之一）+ `state_evidence`（判定依据）。
 
 ### 环 4 MODEL · 模型
-- **What**：用哪套心智模型做判断（决策模型 × 概念体系 × 兵法法则）。
+- **What**：用哪套心智模型做判断（决策模型 × 概念体系 × 军事战略法则）。
 - **Why**：模型决定看见什么（你的心智模型=你的滤镜）；OODA 的 Orient 环节。
 - **When**：任何判断前；Where=MODEL 层三个库。
-- **Who**：操盘手；How=按问题类型选模型（评分卡→决策模型；概念解释→concept-hierarchy；战略推演→sunbin-core）。
+- **Who**：操盘手；How=按问题类型选模型（评分卡→决策模型；概念解释→concept-hierarchy；战略推演→military-core）。
 - **How much**：模型选择 30 秒内完成（不纠结）。
 - **麦肯锡**：模型即 MECE 的分类器——不同问题用不同模型，禁止一套模型打天下。
 - **比喻**：眼镜——不同度数看不同距离，戴错眼镜全模糊。
-- **对应文件**：decision-models / concept-hierarchy / sunbin-core / first-principles。
+- **对应文件**：decision-models / concept-hierarchy / military-core / first-principles。
 
 ### 环 5 DECISION · 决策
 - **What**：在选项间做选择（做哪个选题/攻哪个词/用什么形态）。
 - **Why**：决策质量=信息×模型×时机；评分卡把决策从直觉变可复算。
-- **When**：MODEL 选定后；Where=评分卡/三档预期/兵法推演。
-- **Who**：操盘手；How=评分可见（因子取值+理由）+ 三档预期 + 兵法法则校验。
+- **When**：MODEL 选定后；Where=评分卡/三档预期/军事战略推演。
+- **Who**：操盘手；How=评分可见（因子取值+理由）+ 三档预期 + 军事战略法则校验。
 - **How much**：选题分阈值（≥7 支柱/4-7 卫星/<4 放弃）；三档预期必带触发条件。
 - **麦肯锡**：金字塔——决策=结论，支撑=评分+依据；So What：每个决策都能被追问"凭什么"。
 - **比喻**：菜谱——照着菜谱（公式）做，任何人都能做出 80 分的菜。
-- **对应文件**：decision-models / sunbin-core（攻虚/雄牝城）。
+- **对应文件**：decision-models / military-core（间接路线/重心）。
 
 ### 环 6 ACTION · 行动
 - **What**：把决策变成具体动作（写文/发布/分发/迭代）。
@@ -147,7 +147,7 @@
 
 ### 环 12 EXPERIENCE · 经验（新增协议）
 - **What**：从任务结果中提炼可复用经验（什么有效/什么无效/为什么）。
-- **Why**：失败清单驱动（兵失/将败）——经验是系统进化的原材料；无提炼则每个任务从零开始。
+- **Why**：失败清单驱动（AAR/JLLIS 经验教训系统）——经验是系统进化的原材料；无提炼则每个任务从零开始。
 - **When**：每周归因 + 每个任务收尾；Where=经验提炼。
 - **Who**：操盘手；How=**经验提炼协议**：①记录（发生了什么+结果）②归因（为什么：选题/表达/环境层）③泛化（可复用到哪类场景）④沉淀（进 MEMORY/SKILL）。
 - **How much**：每周 ≥1 条经验（含成功+失败各至少 1 条）。
@@ -232,7 +232,7 @@ S1 冷启动：发布 <10 篇 或 无稳定数据 → 打法：蓄势（法则1�
 S2 验证期：10-30 篇，出现 1-2 个重复模式（标题/选题被数据验证）→ 打法：放大验证模式
 S3 成长期：模式验证 + 引用率环比上升 2 个月 → 打法：正奇相生（法则9）+ 攻虚（法则2）
 S4 稳定期：引用率平台期 → 打法：守品牌（法则3）+ 找新奇
-S5 衰退/转型：引用率/流量连降 2 月（积疏监测触发）→ 打法：诊断（兵失）+ 转型新坐标
+S5 衰退/转型：引用率/流量连降 2 月（韧性监测触发）→ 打法：诊断（AAR）+ 转型新坐标
 判定证据：发布数/引用率/重复模式数（各态需可量化证据，禁止凭感觉判态）
 ```
 
@@ -260,7 +260,7 @@ EXPERIENCE: <提炼的经验（成功/失败）>
 ```
 四步：①记录（发生了什么 + 结果）②归因（选题层/表达层/环境层，attribution-rhythm 三层归因）
 ③泛化（可复用到哪类场景）④沉淀（进 MEMORY 账号基线 / SKILL 规则）
-铁律：验证有效才入 SKILL（避免污染）；失败经验进失败清单（兵失）防复发
+铁律：验证有效才入 SKILL（避免污染）；失败经验进失败清单（AAR）防复发
 ```
 
 ---
@@ -272,8 +272,8 @@ EXPERIENCE: <提炼的经验（成功/失败）>
 | GOAL | agent 协议 1 | benchmarks（北极星） |
 | CONTEXT | playbooks | live-data-protocol |
 | STATE | **§3 新增** | account-profile-schema（加 state 字段） |
-| MODEL | concept-hierarchy / sunbin-core | first-principles |
-| DECISION | decision-models | sunbin-core（兵法校验） |
+| MODEL | concept-hierarchy / military-core | first-principles |
+| DECISION | decision-models | military-core（战略法则校验） |
 | ACTION | agent 产线 8 环 | output-spec |
 | WORLD | L0 战术 Observe | 数据回流 |
 | EVIDENCE | geo-monitoring | live-data-protocol / benchmarks（SOV） |
