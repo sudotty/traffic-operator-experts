@@ -472,3 +472,22 @@
 ### 现代融合（每条 = 原文核心 → 现代原理 → 操盘应用 → 反例）
 - 博弈论（先手/混合策略/焦点策略）、机制设计（激励相容）、信息经济学（信号传递/逆向选择）、行为经济学（预期管理）
 - 系统工程（模块化/接口协议）、控制论（OODA/负反馈）、可靠性（FMEA/检查单）、信息论（信号/噪声）、情景规划（决策树）、约束理论 TOC、探索-利用双元
+
+## 2026-08-10 系统生命周期 19 环闭环（v2.2）
+
+> 全量沉淀于 skill `seo-framework/references/system-lifecycle.md`（v2.2）。此处为 wiki 归档摘要。
+
+### 架构本质
+GOAL→CONTEXT→STATE→MODEL→DECISION→ACTION→WORLD→EVIDENCE→VERIFICATION→REPAIR→TRACE→EXPERIENCE→MEMORY→SKILL→OPTIMIZATION→EVALUATION→RELEASE→BETTER SYSTEM→(回到 GOAL)
+= 单次任务循环（前 11 环：OODA×PDCA）× 长期学习循环（后 7 环：经验→技能→进化）。
+
+### 审计结论：14 环强，4 环弱（已补齐协议）
+- 强：GOAL/CONTEXT/MODEL/DECISION/ACTION/WORLD/EVIDENCE/VERIFICATION/MEMORY/SKILL/OPTIMIZATION/EVALUATION/RELEASE/BETTER SYSTEM（对应 playbooks/评分卡/产线8环/geo-monitoring/红队/记忆 schema/版本线等）
+- 补齐 4 弱环协议：
+  1. **STATE 账号状态机**：五态（冷启动/验证/成长/稳定/衰退），判定证据量化，account-profile-schema v1.3 加 lifecycle_state 字段
+  2. **REPAIR 修复协议**：诊断定位→最小改动(≤10%)→复测验证→记录（先修后写，Tian：修复改5%内容+40%）
+  3. **TRACE 追溯格式**：GOAL→DECISION→ACTION→EVIDENCE→VERIFICATION→REPAIR→EXPERIENCE（每任务≤15行）
+  4. **EXPERIENCE 经验提炼**：记录→归因→泛化→沉淀（验证有效才入 SKILL，失败进兵失清单）
+
+### SKILL 架构铁律 0（v2.2）
+全轨任务先过 19 环检查单——先判 STATE 再定打法；失败走 REPAIR；每任务留 TRACE；经验四步提炼。缺任一环=系统断点，禁止交付。
