@@ -209,18 +209,18 @@ function extractJson(text: string): any {
 const RUBRIC_TEXT = RUBRIC.map((r) => `${r.label}(${r.max}${r.critical ? ",critical" : ""})`).join("，");
 const JUDGE_SYSTEM = `你是严格的专业评审官。按 rubric（${RUBRIC_TEXT}）对回答逐项打分，满分 ${RUBRIC.reduce((s, r) => s + r.max, 0)}，通过线 ${PASS_LINE}（critical 项为 0 直接不合格）。只输出 JSON：{"score":{"diagnosis":0,"routing":0,"data":0,"compliance":0,"redteam":0,"expectation":0,"structure":0,"routing2":0,"livedata":0,"citation":0},"reason":"<50字总评>"}。`;
 
-/** 注入专家包上下文（按需注入：SKILL 全文 + 合规 + EXECUTION-CORE 核心段；过长会压垮产出模型） */
+/** 注入专家包上下文（按需注入：SKILL 全文 + 合规 + EXECUTION-CORE 核心段；v5.2 瘦身：上限 15k→9k，EXECUTION-CORE 段 5k→3k） */
 function loadExpertContext(): string {
   const skillDir = join(REPO, "seo-traffic-growth/skills/seo-framework");
   const parts: string[] = [];
   const skillPath = join(skillDir, "SKILL.md");
   if (existsSync(skillPath)) parts.push(`=== SKILL.md ===\n${readFileSync(skillPath, "utf8")}`);
   const compliancePath = join(skillDir, "references/compliance.md");
-  if (existsSync(compliancePath)) parts.push(`=== compliance.md ===\n${readFileSync(compliancePath, "utf8")}`);
+  if (existsSync(compliancePath)) parts.push(`=== compliance.md ===\n${readFileSync(compliancePath, "utf8").slice(0, 2500)}`);
   const corePath = join(skillDir, "references/EXECUTION-CORE.md");
-  if (existsSync(corePath)) parts.push(`=== EXECUTION-CORE.md（核心段）===\n${readFileSync(corePath, "utf8").slice(0, 5000)}`);
-  // 上下文上限 15k 字符（实测 24k 会导致产出模型 content 为空）
-  return parts.join("\n\n").slice(0, 15000);
+  if (existsSync(corePath)) parts.push(`=== EXECUTION-CORE.md（核心段）===\n${readFileSync(corePath, "utf8").slice(0, 3000)}`);
+  // 上下文上限 9k 字符（v5.2 瘦身：实测 24k 会压垮 flash；9k 覆盖铁律+流程+合规核心）
+  return parts.join("\n\n").slice(0, 9000);
 }
 
 let EXPERT_CONTEXT: string | null = null;
