@@ -155,6 +155,44 @@ function checkChangelog(): void {
   missing.length === 0 ? pass("六类分区齐全") : fail(`CHANGELOG 缺分区: ${missing.join("、")}`);
 }
 
+/* ---------- 3.6 正文版本一致性（v5.1 收尾修复：防"references 升版但 SKILL/agent/plugin.json 漏改"） ---------- */
+function checkBodyVersion(): void {
+  console.log("[3.6/6] 正文版本一致性（SKILL/agent/plugin.json 必须 v5.1）");
+  let bad = 0;
+  const files = [
+    join(GROWTH, "skills/seo-framework/SKILL.md"),
+    join(GROWTH, "agents/seo-traffic-growth.md"),
+    join(PIPELINE, "skills/seo-framework/SKILL.md"),
+    join(INST_GROWTH, "skills/seo-framework/SKILL.md"),
+    join(INST_PIPELINE, "skills/seo-framework/SKILL.md"),
+    join(INST_GROWTH, "agents/seo-traffic-growth.md"),
+  ];
+  for (const p of files) {
+    if (!existsSync(p)) continue;
+    const content = readFileSync(p, "utf8");
+    // 正文不得出现旧体系版本号 v5.0（排除历史叙述词：沿用/引入/起/自/基线/协议/收口/把）
+    const m = content.match(/v5\.0(?![^）\n]*(沿用|引入|起|自|基线|协议|收口|把|，v5))/);
+    if (m) {
+      const line = content.split("\n").find((l) => l.includes(m[0])) ?? "";
+      fail(`${relative(REPO, p)}: 正文残留 ${m[0]} → ${line.trim().slice(0, 60)}`);
+      bad++;
+    }
+  }
+  // plugin.json version 必须为 5.1.0（源 + 已安装 ×2）
+  for (const [label, base] of [["源仓库", REPO], ["已安装", INST]] as const) {
+    for (const pkg of ["seo-traffic-growth", "seo-traffic-pipeline"]) {
+      const p = join(base, pkg, ".codebuddy-plugin/plugin.json");
+      if (!existsSync(p)) continue;
+      const d = JSON.parse(readFileSync(p, "utf8"));
+      if (d.version !== "5.1.0") {
+        fail(`${label} ${pkg} plugin.json version=${d.version}（应为 5.1.0）`);
+        bad++;
+      }
+    }
+  }
+  bad === 0 ? pass("SKILL/agent 正文无旧版本残留；plugin.json 全 5.1.0") : fail(`${bad} 处正文/版本不一致`);
+}
+
 /* ---------- 4. 契约测试（索引 ↔ 文件双向一致，替代人工 T1） ---------- */
 function checkContract(): void {
   console.log("[4/6] 契约测试（索引 ↔ 文件双向一致）");
@@ -268,6 +306,7 @@ checkForbidden();
 checkSync();
 checkVersion();
 checkChangelog();
+checkBodyVersion();
 checkContract();
 checkLifecycle();
 if (release) checkReleaseGate();
