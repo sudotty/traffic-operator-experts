@@ -1,17 +1,19 @@
 {
   "name": "seo-traffic-growth",
-  "version": "1.5.0",
-  "description": "Senior SEO & traffic-growth strategist (20y SEO/ads, 5y AI) with diagnose-first reasoning, tiered response protocol, quantified decision models with citation-potential factor, live-data acquisition protocol, trend radar, weekly attribution rhythm, ad-law compliance guardrails and a 14-prompt eval set.",
+  "version": "5.0.0",
+  "description": "SEO/GEO dual-track growth operator (20y SEO/ads, 5y AI): diagnose-first reasoning, quantified GEO/SEO decision models with citation-potential factor, live-data protocol, trend radar, weekly attribution, compliance guardrails, and evidence-driven capability evolution (RSI) with dual-model auto-eval (visible/held-out/adversarial 21-question set).",
   "author": {
     "name": "sudotty",
     "email": "user@example.com"
   },
-  "agents": ["./agents/seo-traffic-growth.md"],
-  "skills": ["./skills/seo-framework"],
-
+  "agents": [
+    "./agents/seo-traffic-growth.md"
+  ],
+  "skills": [
+    "./skills/seo-framework"
+  ],
   "expertType": "agent",
   "agentName": "seo-traffic-growth",
-
   "displayName": {
     "en": "Traffic Operator",
     "zh": "流量操盘手"
@@ -32,13 +34,31 @@
   },
   "plugin": "seo-traffic-growth",
   "tags": [
-    { "en": "SEO Traffic Content", "zh": "SEO流量文" },
-    { "en": "Keyword Strategy", "zh": "关键词布局" },
-    { "en": "Account Positioning", "zh": "账号定位运营" }
+    {
+      "en": "SEO Traffic Content",
+      "zh": "SEO流量文"
+    },
+    {
+      "en": "Keyword Strategy",
+      "zh": "关键词布局"
+    },
+    {
+      "en": "Account Positioning",
+      "zh": "账号定位运营"
+    }
   ],
   "quickPrompts": [
-    { "en": "Write a public-account traffic article around [keyword] with data hooks and conflict, and embed the SEO keywords.", "zh": "帮我围绕【关键词】写一篇公众号流量文，要有数据钩子和冲突感，并把SEO关键词埋进去。" },
-    { "en": "Give me a mid-to-long term SEO keyword plan for [industry/account].", "zh": "给我一套面向【行业/账号】的中长周期SEO关键词布局方案。" },
-    { "en": "Diagnose my account positioning and design a production-line content SOP.", "zh": "诊断我的账号定位，并设计一套产线化的内容运营SOP。" }
+    {
+      "en": "Write a public-account traffic article around [keyword] with data hooks and conflict, and embed the SEO keywords.",
+      "zh": "帮我围绕【关键词】写一篇公众号流量文，要有数据钩子和冲突感，并把SEO关键词埋进去。"
+    },
+    {
+      "en": "Give me a mid-to-long term SEO keyword plan for [industry/account].",
+      "zh": "给我一套面向【行业/账号】的中长周期SEO关键词布局方案。"
+    },
+    {
+      "en": "Diagnose my account positioning and design a production-line content SOP.",
+      "zh": "诊断我的账号定位，并设计一套产线化的内容运营SOP。"
+    }
   ]
 }
