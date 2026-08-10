@@ -491,3 +491,23 @@ GOAL→CONTEXT→STATE→MODEL→DECISION→ACTION→WORLD→EVIDENCE→VERIFICA
 
 ### SKILL 架构铁律 0（v2.2）
 全轨任务先过 19 环检查单——先判 STATE 再定打法；失败走 REPAIR；每任务留 TRACE；经验四步提炼。缺任一环=系统断点，禁止交付。
+
+## 2026-08-10 军事方法论注入（v2.3）
+
+> 全量沉淀于 skill `seo-framework/references/military-core.md`（v2.3）。此处为 wiki 归档摘要。
+
+### 穷举：5 域 30+ 方法论
+- 情报域（10）：情报周期/五大搜集类(SIGINT/HUMINT/GEOINT/OSINT/MASINT)/PIR/ISR/ACH竞争假设/结构化分析SAT/信号vs噪音/情报差距/欺骗识别/战争迷雾
+- 执行域（10）：任务式指挥/机动战/间接路线/重心CoG/五环理论/杀伤链F2T2EA/作战节奏/欺骗佯动/AAR复盘/OODA
+- 指挥域（8）：C4ISR/统一指挥/纵深防御/集中vs分散/弹性冗余/参谋G体系/兵棋推演/条令
+- 评估域（5）：BDA/经验教训系统/演习检验/红队/战役复盘
+- 战略域（5）：不战而屈人之兵/战争是政治的延续/威慑/大纵深作战/军事革命RMA
+
+### 19 环映射（关键强化）
+- GOAL←重心CoG/战争是政治的延续；CONTEXT←情报周期/PIR/战争迷雾；MODEL←ACH/SAT；DECISION←任务式指挥/兵棋推演；ACTION←机动战/间接路线/杀伤链；EVIDENCE←五大情报类/情报差距；VERIFICATION←BDA/红队；REPAIR+EXPERIENCE←AAR/经验教训；SKILL+RELEASE←条令/RMA
+
+### 8 个深度结合（5W2H+比喻+四化）
+AAR复盘四问（注入 attribution-rhythm）/ 情报周期+PIR（强化取数纪律）/ 任务式指挥（产线组织意图下放）/ ACH竞争假设（红队升级）/ 重心CoG（北极星锚定）/ 兵棋推演（预案升级为主动检验）/ 杀伤链F2T2EA（GEO三环扩为全链漏斗）/ 条令Doctrine（SKILL版本线=条令修订）
+
+### 系统升级一句话
+从「决策强」→「情报-执行-复盘」三环都强：先看清再动手（情报周期+PIR+ACH）、意图式执行（任务式指挥+机动战）、每战必复盘（AAR进条令，条令驱动进化）。
