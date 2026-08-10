@@ -60,7 +60,7 @@ function listFiles(root: string, out: string[] = [], base = root, skipDirs = SKI
 
 /* ---------- 1. 禁词检查 ---------- */
 function checkForbidden(): void {
-  console.log("[1/3] 禁词检查（源仓库 + 已安装副本）");
+  console.log("[1/5] 禁词检查（源仓库 + 已安装副本）");
   const roots = [REPO, INST_GROWTH, INST_PIPELINE];
   let hits = 0;
   for (const root of roots) {
@@ -112,7 +112,7 @@ function compareDir(a: string, b: string, label: string): void {
 }
 
 function checkSync(): void {
-  console.log("[2/3] 副本同步（growth == pipeline == 已安装 ×2）");
+  console.log("[2/5] 副本同步（growth == pipeline == 已安装 ×2）");
   compareDir(GROWTH, PIPELINE, "growth vs pipeline");
   compareDir(GROWTH, INST_GROWTH, "growth vs 已安装 growth");
   compareDir(GROWTH, INST_PIPELINE, "growth vs 已安装 pipeline");
@@ -135,7 +135,71 @@ function checkVersion(): void {
   bad === 0 ? pass("全部引用文件版本行 = v5.0（修订史在 git）") : fail(`${bad} 个文件版本行非 v5.0`);
 }
 
-/* ---------- 4. release 门禁（--release，发布前强制检查） ---------- */
+/* ---------- 4. 契约测试（索引 ↔ 文件双向一致，替代人工 T1） ---------- */
+function checkContract(): void {
+  console.log("[4/5] 契约测试（索引 ↔ 文件双向一致）");
+  const skillDir = join(GROWTH, "skills/seo-framework");
+  const refsDir = join(skillDir, "references");
+  const disk = new Set(readdirSync(refsDir).filter((n) => n.endsWith(".md")));
+  const indexed = new Set<string>();
+  for (const f of ["SKILL.md", "references/EXECUTION-CORE.md"]) {
+    const content = readFileSync(join(skillDir, f), "utf8");
+    // 索引表每行只有首个引用带 references/ 前缀，故提取全部 X.md 文件名
+    for (const m of content.matchAll(/([\w-]+)\.md/g)) {
+      const name = m[1];
+      if (name === "SKILL" || name === "EXECUTION-CORE") continue; // 顶层入口
+      indexed.add(`${name}.md`);
+    }
+  }
+  let bad = 0;
+  for (const f of indexed) {
+    if (!disk.has(f)) {
+      fail(`断链：索引引用 references/${f} 但磁盘不存在`);
+      bad++;
+    }
+  }
+  for (const f of disk) {
+    if (f === "EXECUTION-CORE.md") continue; // 顶层入口，SKILL 头部引用
+    if (!indexed.has(f)) {
+      fail(`孤儿：磁盘 references/${f} 未被 SKILL/EXECUTION-CORE 索引`);
+      bad++;
+    }
+  }
+  bad === 0
+    ? pass(`索引 ↔ 磁盘一致（${indexed.size} 引用 / ${disk.size} 文件）`)
+    : fail(`${bad} 处契约不一致`);
+}
+
+/* ---------- 5. 字典生命周期（使用率检查，选择压力落地） ---------- */
+function checkLifecycle(): void {
+  console.log("[5/5] 字典生命周期（非索引引用 <2 次 → LOW-USE 提示）");
+  const refsDir = join(GROWTH, "skills/seo-framework/references");
+  const files = readdirSync(refsDir).filter((n) => n.endsWith(".md") && n !== "EXECUTION-CORE.md");
+  const low: string[] = [];
+  for (const f of files) {
+    const name = f.replace(/\.md$/, "");
+    let count = 0;
+    const walk = (dir: string): void => {
+      for (const n of readdirSync(dir)) {
+        if (SKIP_DIRS.has(n)) continue;
+        const p = join(dir, n);
+        const st = statSync(p);
+        if (st.isDirectory()) walk(p);
+        else if (st.isFile() && p.endsWith(".md") && !p.includes("/SKILL.md")) {
+          const c = readFileSync(p, "utf8");
+          count += (c.match(new RegExp(`\\b${name}\\b`, "g")) ?? []).length;
+        }
+      }
+    };
+    walk(GROWTH);
+    if (count < 2) low.push(`${f}（引用 ${count} 次）`);
+  }
+  low.length === 0
+    ? pass(`全部 ${files.length} 个字典均有真实引用（无 LOW-USE）`)
+    : console.warn(`  ⚠️ LOW-USE 提示（不阻断；季度走 ACTIVE→DEPRECATED 流程评估）: ${low.join("、")}`);
+}
+
+/* ---------- 6. release 门禁（--release，发布前强制检查） ---------- */
 function checkReleaseGate(): void {
   console.log("[--release] 发布门禁（evals 记录必须覆盖当前体系版本）");
   const evalsPath = join(GROWTH, "skills/seo-framework/references/evals.md");
@@ -183,6 +247,8 @@ const release = process.argv.includes("--release");
 checkForbidden();
 checkSync();
 checkVersion();
+checkContract();
+checkLifecycle();
 if (release) checkReleaseGate();
 if (build) buildZips();
 

@@ -774,3 +774,19 @@ Observe(ISR)→Orient(ACH+认知对抗)→Decide(任务式指挥+马赛克编组
 ### 验证
 - `npm run verify --build` 全绿（禁词 0 / 副本×3 / 版本单轨 v5.0 / zip 禁词 0）；zip 475 KB / 2177 KB。
 - 本包最终形态：Evidence-Driven Capability Evolution——能力（C-Cell）/ 经验（E-Cell）/ 进化（M-Cell）三库闭环。
+
+## 2026-08-10 13:10 生产级落地（用户：细节全落地，基础要素达生产/商业级标准）
+
+> 目标：v5.0 协议全部工具化，评估/防污染/对抗/生命周期/契约/成本达到生产级。
+
+### 变更内容
+1. **tools/judge.ts（新）**：LLM-as-judge 自动评分器——flash 产出 + pro 评审（防自我表扬）、16 分 rubric、三题集（visible 14 / heldout 5 / adversarial 2）、--dry-run/--budget/--json/--judge/--only/--gen-adversarial、120s 超时 + 空回复自动重试 + reasoning_content 降级、402 优雅退出（码 4）、报告落盘 tmp/。
+2. **评估校准（关键工程发现）**：①裸模型评估 ≠ 产品评估 → 注入专家上下文（SKILL+compliance+EXECUTION-CORE 核心段 ≤15k，24k 实测导致 flash 空回复）②max_tokens 2048→4096 ③空回复重试——修复后 14 题全跑通。
+3. **evals.md**：新增 Held-out 题集 H1-H5（季度轮换）+ 自博弈对抗题集 A1-A2（周轮换）；自动化评估协议升级 v5.0（judge 用法/成本核算/记录纪律）；**实测记录表写入 v5.0 生产基线**（visible 141/224 6/14 过；heldout 41/80 2/5 过；adversarial 32/32 2/2 过）。
+4. **verify.ts 升级 5 项**：+契约测试（索引↔文件双向，替代人工 T1）+ 字典生命周期（LOW-USE 提示不阻断）。
+5. **tools/README.md + package.json**：npm scripts 全量（verify/zip/release/judge/evolve/archive），退出码约定 0/1/2/3/4/5，CI 发布流水线。
+
+### 验证
+- `npm run verify --build` 全绿（禁词 0 / 副本×3 / 版本单轨 v5.0 / 契约 25↔26 / zip 禁词 0）。
+- **生产基线结论**：judge 校准后评分分布合理；微任务/合规/GEO 结构强（14-16 分），复杂诊断/数据纪律弱（0-2 分）→ 马赛克路由（pro 复杂推理）由建议升级为 P1 必须项。
+- 成本实测：全量 19 题 × 2 调用 ≈ 102k in + 79k out tokens（价格按官方表）。
