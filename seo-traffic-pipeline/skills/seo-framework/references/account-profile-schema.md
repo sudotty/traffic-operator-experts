@@ -15,9 +15,14 @@
 
 ```json
 {
-  "schema_version": "1.2",
+  "schema_version": "1.3",
   "account_id": "gzh-0to1-private",
   "updated_at": "2026-08-03",
+  "lifecycle_state": {
+    "state": "S1 冷启动",
+    "state_evidence": "发布 6 篇无稳定数据；无重复模式",
+    "state_updated_at": "2026-08-03"
+  },
   "baseline": {
     "positioning": {
       "platform": "公众号",

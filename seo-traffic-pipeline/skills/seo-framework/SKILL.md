@@ -14,7 +14,12 @@ description: SEO/GEO 流量增长的量化基准数据库与决策模型库。�
 - 做选题评估、标题评估、关键词分层等需要量化打分时
 - 需要为策略提供学术理论支撑时
 
-## 包含内容（按 3 把尖刀组织）
+## 包含内容（架构层 + 3 把尖刀）
+
+### 架构层：19 环节系统生命周期（最高层，所有任务先过此检查单）
+| 文件 | 内容 |
+|---|---|
+| `references/system-lifecycle.md` | **v2.2 系统架构**：GOAL→CONTEXT→STATE→MODEL→DECISION→ACTION→WORLD→EVIDENCE→VERIFICATION→REPAIR→TRACE→EXPERIENCE→MEMORY→SKILL→OPTIMIZATION→EVALUATION→RELEASE→BETTER SYSTEM 闭环；每环 5W2H 详解 + 对应文件 + 强弱标注；**新增 4 弱环协议**（STATE 账号状态机五态 / REPAIR 修复四步 / TRACE 追溯格式 / EXPERIENCE 经验提炼四步） |
 
 ### 尖刀 1：学术级 GEO/AI 深度
 | 文件 | 内容 |
@@ -51,7 +56,10 @@ description: SEO/GEO 流量增长的量化基准数据库与决策模型库。�
 | `references/style-anchors.md` | 用户风格锚点库（few-shot 之源，等待投喂代表作后生效） |
 | `references/compliance.md` | 合规护栏：违禁词库 + 改写规则 + 版权/平台红线（**合规是底线，永远启用**） |
 
-## 使用规则（v1.9 聚焦版：3 尖刀 × 铁律）
+## 使用规则（v2.2 聚焦版：架构层 + 3 尖刀 × 铁律）
+
+### 架构铁律（v2.2 新增 · 所有全轨任务先过 19 环检查单）
+0. **生命周期闭环**：全轨任务按 system-lifecycle.md 的 19 环节走——**先判 STATE（账号状态机五态：冷启动/验证/成长/稳定/衰退）再定打法**；验证失败走 REPAIR（先修后写，最小改动 ≤10%）；每任务留 TRACE 追溯（≤15 行）；经验按四步提炼（记录→归因→泛化→沉淀），验证有效才入 SKILL。缺任一环=系统断点，禁止交付。
 
 ### 铁律（所有输出，优先级 `合规 > 真实 > 用户目标 > 网感风格`）
 1. **引用必标注**：库内数据必带来源+年份/口径（如"Pew 2025，会话级面板"）；库外标【待核实】；时效数据先检索。
